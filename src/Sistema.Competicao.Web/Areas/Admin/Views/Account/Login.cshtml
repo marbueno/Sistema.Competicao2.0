@@ -1,0 +1,68 @@
+﻿@model Sistema.Competicao.Web.Areas.Admin.Models.UsuarioVM
+
+<div id="appLogin" style="overflow:hidden;width:100%; text-align:center;z-index:0;position:absolute;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <a href="/" style="" title="Voltar para página principal">
+                <img style="float:left;width:30px;height:30px;padding-left:5px;" src="/images/voltar.png" />
+            </a>
+            <div class="modal-header" style="background-color:#650e02;">
+                <h1><b><span style="color:white;font-size:30px;">@ViewBag.NomeEquipe</span></b></h1>
+            </div>
+            <div class="modal-body">
+                <h3>Área Restrita</h3>
+                <p style="color:gray;">Entre com Login e Senha para acesso administrativo</p>
+                <br />
+                <section>
+                    <form id="frmLogin" asp-controller="Account" asp-action="Login" method="post" class="form">
+                        <div class="form-group">
+                            <input asp-for="Login" class="form-control" placeholder="Login" name="Login" type="text" v-model="Login" v-validate="'required'" autofocus>
+                            <span v-show="errors.has('login')" class="alert-form">{{ errors.first('Login') }}</span>
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="Senha" class="form-control" placeholder="Senha" name="Senha" type="password" v-model="Senha" v-validate="'required'">
+                            <span v-show="errors.has('senha')" class="alert-form">{{ errors.first('Senha') }}</span>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button class="Botao Botao-Login" style="width:100%" v-on:click="validarDados">Entrar</button>
+                        </div>
+                    </form>
+
+                </section>
+            </div>
+        </div>
+        <br />
+        <div>
+            <h5 style="color:gray;">Desenvolvido por <a style="color:gray;" href="http://tkmsolutions.com.br" target="_blank" title="TKM Solutions">TKM SOLUTIONS</a></h5>
+            <br />
+            <p style="color:black;font-style:italic;">Copyright © @DateTime.Now.Year - Todos os direitos reservados © TKM Solutions</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    //import de biblioteca de validação e mask
+    Vue.use(VeeValidate);
+
+    //funcionalidades formulario Dados da Empresa (validations)
+    var appLogin = new Vue({
+        el: '#appLogin',
+        data: {
+            Login: '',
+            Senha: ''
+        },
+        methods: {
+            validarDados: function (e) {
+                this.$validator.localize('pt_BR');
+                this.$validator.validate().then(result => {
+                    e.preventDefault();
+                    //se passou em todas as validações
+                    if (result) {
+                        $("#frmLogin").submit();
+                    }
+                });
+            }
+        }
+    });
+</script>
