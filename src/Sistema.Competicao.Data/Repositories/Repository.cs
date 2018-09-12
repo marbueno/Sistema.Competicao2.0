@@ -1,6 +1,7 @@
-using Sistema.Competicao.Data;
 using Sistema.Competicao.Domain;
+using System;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace Sistema.Competicao.Data
 {
@@ -22,5 +23,10 @@ namespace Sistema.Competicao.Data
         {
             _dbContext.Set<TEntity>().Add(entity);
         }
+
+        //public IQueryable Where(Expression<Func<TEntity, bool>> expression)
+        //{
+        //    return _dbContext.Set<TEntity>().Where(expression);
+        //}
     }
 }

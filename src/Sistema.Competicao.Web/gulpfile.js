@@ -9,8 +9,8 @@ gulp.task('browserSync', function(){
         proxy: 'localhost:5000'
     });
 
-    gulp.watch('./Styles/**/*.css', ['css','cssadmin'])
-    gulp.watch('./Scripts/**/*.js', ['js'])
+    gulp.watch('./Styles/**/*.css', ['css', 'cssadmin']);
+    gulp.watch('./Scripts/**/*.js', ['js']);
 })
 
 gulp.task('js', function(){

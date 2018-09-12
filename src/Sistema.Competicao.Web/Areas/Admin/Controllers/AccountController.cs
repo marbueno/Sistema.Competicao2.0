@@ -8,14 +8,28 @@ namespace Sistema.Competicao.Web.Areas.Admin.Controllers
 {
     public class AccountController : Controller
     {
-        public IConfiguration _configuration { get; }
+        private readonly IConfiguration _configuration;
+        private readonly IRepository<AuthenticationEN> _repositoryAuthentication;
+        private readonly IRepository<QuadraEN> _repositoryQuadra;
+        private readonly AuthenticationBU _authentication;
 
-        //private readonly IRepository<UsuarioEN> _usuarioRepository;
+        //public AccountController(IConfiguration configuration, IRepository<AuthenticationEN> repositoryAuthentication, AuthenticationBU authentication)
+        //{
+        //    _configuration = configuration;
+        //    _repositoryAuthentication = repositoryAuthentication;
+        //    _authentication = authentication;
+        //}
 
-        public AccountController(IConfiguration configuration)
+        //public AccountController(IConfiguration configuration, IRepository<AuthenticationEN> repositoryAuthentication)
+        //{
+        //    _repositoryAuthentication = repositoryAuthentication;
+        //    _configuration = configuration;
+        //}
+
+        public AccountController(IConfiguration configuration, IRepository<QuadraEN> repositoryQuadra)
         {
+            _repositoryQuadra = repositoryQuadra;
             _configuration = configuration;
-            //_usuarioRepository = usuarioRepository;
         }
 
         public IActionResult Login()
@@ -28,7 +42,9 @@ namespace Sistema.Competicao.Web.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(UsuarioVM usuarioVM)
         {
-            return Ok();
+            var result = _authentication.Authenticate(usuarioVM.Login, usuarioVM.Senha);
+            return View();
+
             //var result = await _authentication.Authenticate(usuarioVM.Login, usuarioVM.Senha);
 
             //if (result)

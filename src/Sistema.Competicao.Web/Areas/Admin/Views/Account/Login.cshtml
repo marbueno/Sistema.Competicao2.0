@@ -17,11 +17,11 @@
                     <form id="frmLogin" asp-controller="Account" asp-action="Login" method="post" class="form">
                         <div class="form-group">
                             <input asp-for="Login" class="form-control" placeholder="Login" name="Login" type="text" v-model="Login" v-validate="'required'" autofocus>
-                            <span v-show="errors.has('login')" class="alert-form">{{ errors.first('Login') }}</span>
+                            <span v-show="errors.has('Login')" class="alert-form">{{ errors.first('Login') }}</span>
                         </div>
                         <div class="form-group">
                             <input asp-for="Senha" class="form-control" placeholder="Senha" name="Senha" type="password" v-model="Senha" v-validate="'required'">
-                            <span v-show="errors.has('senha')" class="alert-form">{{ errors.first('Senha') }}</span>
+                            <span v-show="errors.has('Senha')" class="alert-form">{{ errors.first('Senha') }}</span>
                         </div>
 
                         <div class="modal-footer">
@@ -54,8 +54,11 @@
         },
         methods: {
             validarDados: function (e) {
+                console.log("Passou");
                 this.$validator.localize('pt_BR');
+                console.log("Passou 1");
                 this.$validator.validate().then(result => {
+                    console.log("Passou2");
                     e.preventDefault();
                     //se passou em todas as validações
                     if (result) {

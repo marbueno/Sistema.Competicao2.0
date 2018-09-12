@@ -23,7 +23,6 @@ namespace Sistema.Competicao.DI
 
             services.AddSingleton(typeof(IRepository<>), typeof(Repository<>));
             services.AddSingleton(typeof(QuadraBU));
-            services.AddSingleton(typeof(UsuarioBU));
             services.AddSingleton(typeof(IUnitOfWork), typeof(UnitOfWork));
         }
     }

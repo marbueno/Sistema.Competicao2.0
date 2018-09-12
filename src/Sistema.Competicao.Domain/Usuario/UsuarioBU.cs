@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Sistema.Competicao.Domain
+﻿namespace Sistema.Competicao.Domain
 {
     public class UsuarioBU
     {
