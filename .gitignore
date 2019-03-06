@@ -1,0 +1,10 @@
+.vs/
+/src/Sistema.Competicao.Data/obj
+/src/Sistema.Competicao.Data/bin
+/src/Sistema.Competicao.Domain/bin
+/src/Sistema.Competicao.Domain/obj
+/src/Sistema.Competicao.DI/bin
+/src/Sistema.Competicao.DI/obj
+/src/Sistema.Competicao.Web/bin
+/src/Sistema.Competicao.Web/obj
+/src/Sistema.Competicao.Web/node_modules/

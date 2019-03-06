@@ -9,7 +9,7 @@
             _repositoryUsuarioEN = repositoryUsuarioEN;
         }
 
-        public void Save(int usuCodigo, string usuNome, string usuLogin, string usuSenha, int perCodigo)
+        public void Save(int usuCodigo, string usuNome, string usuLogin, string usuEmail, string usuSenha, int perCodigo)
         {
             UsuarioEN usuarioEN = _repositoryUsuarioEN.GetByID(usuCodigo);
 
@@ -18,7 +18,8 @@
                 usuarioEN.UpdateProperties
                     (
                         usuNome, 
-                        usuarioEN.usuLogin, 
+                        usuarioEN.usuLogin,
+                        usuEmail,
                         usuSenha, 
                         perCodigo
                     );
@@ -28,11 +29,14 @@
                 usuarioEN = new UsuarioEN
                     (
                         usuNome, 
-                        usuLogin, 
+                        usuLogin,
+                        usuEmail,
                         usuSenha, 
                         perCodigo
                     );
             }
+
+            _repositoryUsuarioEN.Save(usuarioEN);
         }
     }
 }

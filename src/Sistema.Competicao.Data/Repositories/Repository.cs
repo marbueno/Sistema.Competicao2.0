@@ -2,6 +2,7 @@ using Sistema.Competicao.Domain;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace Sistema.Competicao.Data
 {
@@ -14,19 +15,19 @@ namespace Sistema.Competicao.Data
             _dbContext = dbContext;
         }
 
-        public TEntity GetByID(int id)
+        public virtual TEntity GetByID(int id)
         {
             return _dbContext.Set<TEntity>().Find(id);
         }
 
-        public void Save(TEntity entity)
+        public virtual void Save(TEntity entity)
         {
             _dbContext.Set<TEntity>().Add(entity);
         }
 
-        //public IQueryable Where(Expression<Func<TEntity, bool>> expression)
-        //{
-        //    return _dbContext.Set<TEntity>().Where(expression);
-        //}
+        public virtual IQueryable Where(Expression<Func<TEntity, bool>> expression)
+        {
+            return _dbContext.Set<TEntity>().Where(expression);
+        }
     }
 }

@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using Sistema.Competicao.Data;
 using Sistema.Competicao.Domain;
 using System;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace Sistema.Competicao.DI
 {
@@ -11,19 +13,21 @@ namespace Sistema.Competicao.DI
         public static void Configure(IServiceCollection services, string connectionString)
         {
             services.AddDbContext<DataBaseContext>(opt => opt.UseMySql(connectionString));
-            services.ConfigureApplicationCookie(opt => opt.LoginPath = "/Admin/Account/Login");
 
-            services.AddAuthentication("CookieAuthentication")
-                .AddCookie(opt =>
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, opt =>
                 {
                     opt.LoginPath = "/Admin/Account/Login";
                     opt.LogoutPath = "/Admin/Account/Logout";
-                    opt.ExpireTimeSpan = TimeSpan.FromDays(150);
+                    opt.ExpireTimeSpan = TimeSpan.FromMinutes(5);
                 });
 
-            services.AddSingleton(typeof(IRepository<>), typeof(Repository<>));
-            services.AddSingleton(typeof(QuadraBU));
-            services.AddSingleton(typeof(IUnitOfWork), typeof(UnitOfWork));
+            services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
+            services.AddTransient(typeof(IAuthentication), typeof(Authentication));
+            services.AddTransient(typeof(QuadraBU));
+            services.AddTransient(typeof(UsuarioBU));
+            services.AddTransient(typeof(IUnitOfWork), typeof(UnitOfWork));
         }
     }
 }

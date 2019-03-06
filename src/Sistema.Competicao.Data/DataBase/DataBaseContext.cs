@@ -10,8 +10,7 @@ namespace Sistema.Competicao.Data
         {
         }
 
-        public DbSet<AuthenticationEN> tblUsuario { get; set; }
-        //public DbSet<UsuarioEN> tblUsuario { get; set; }
+        public DbSet<UsuarioEN> tblUsuario { get; set; }
         public DbSet<QuadraEN> tblQuadra { get; set; }
         //public DbSet<AdversarioEN> tblAdversario { get; set; }
     }

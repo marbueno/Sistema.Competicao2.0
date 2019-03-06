@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Sistema.Competicao.Domain;
@@ -8,52 +9,83 @@ namespace Sistema.Competicao.Web.Areas.Admin.Controllers
 {
     public class AccountController : Controller
     {
+        #region Variables
+
         private readonly IConfiguration _configuration;
-        private readonly IRepository<AuthenticationEN> _repositoryAuthentication;
-        private readonly IRepository<QuadraEN> _repositoryQuadra;
-        private readonly AuthenticationBU _authentication;
+        private readonly IAuthentication _authentication;
+        private readonly IRepository<UsuarioEN> _usuarioRepository;
+        private readonly UsuarioBU _usuarioBU;
 
-        //public AccountController(IConfiguration configuration, IRepository<AuthenticationEN> repositoryAuthentication, AuthenticationBU authentication)
-        //{
-        //    _configuration = configuration;
-        //    _repositoryAuthentication = repositoryAuthentication;
-        //    _authentication = authentication;
-        //}
+        #endregion Variables
 
-        //public AccountController(IConfiguration configuration, IRepository<AuthenticationEN> repositoryAuthentication)
-        //{
-        //    _repositoryAuthentication = repositoryAuthentication;
-        //    _configuration = configuration;
-        //}
+        #region Constructor
 
-        public AccountController(IConfiguration configuration, IRepository<QuadraEN> repositoryQuadra)
+        public AccountController(IConfiguration configuration, IAuthentication authentication, IRepository<UsuarioEN> usuarioRepository, UsuarioBU usuarioBU)
         {
-            _repositoryQuadra = repositoryQuadra;
             _configuration = configuration;
+            _authentication = authentication;
+            _usuarioRepository = usuarioRepository;
+            _usuarioBU = usuarioBU;
         }
+
+        #endregion Constructor
+
+        #region Authentication
 
         public IActionResult Login()
         {
             ViewBag.NomeEquipe = _configuration.GetValue<string>("NomeEquipe");
 
+            if (_authentication.IsLoggedIn())
+                return Redirect("/Admin/Home/Dashboard");
+
             return View();
+        }
+
+        public async Task<IActionResult> Logout()
+        {
+            await _authentication.Logout();
+            return Redirect("/Admin");
         }
 
         [HttpPost]
         public async Task<IActionResult> Login(UsuarioVM usuarioVM)
         {
-            var result = _authentication.Authenticate(usuarioVM.Login, usuarioVM.Senha);
-            return View();
+            await _authentication.Authenticate(usuarioVM.Login, usuarioVM.Senha);
 
-            //var result = await _authentication.Authenticate(usuarioVM.Login, usuarioVM.Senha);
-
-            //if (result)
-            //    return Redirect("/");
-            //else
-            //{
-            //    ModelState.AddModelError(string.Empty, "Login Inválido");
-            //    return View(usuarioVM);
-            //}
+            return Ok();
         }
+
+        #endregion Authentication
+
+
+        #region Profile
+
+        public IActionResult Profile()
+        {
+            if (!_authentication.IsLoggedIn())
+                return Redirect("/Admin");
+
+            UsuarioEN usuarioEN = _authentication.GetUserLogged();
+            UsuarioVM usuarioVM = new UsuarioVM()
+            {
+                Codigo = usuarioEN.usuCodigo,
+                Login = usuarioEN.usuLogin,
+                Nome = usuarioEN.usuNome,
+                Email = usuarioEN.usuEmail
+            };
+
+            return View(usuarioVM);
+        }
+
+        [HttpPost]
+        public IActionResult ProfileUpdate(UsuarioVM usuarioVM)
+        {
+            _usuarioBU.Save(usuarioVM.Codigo, usuarioVM.Nome, usuarioVM.Login, usuarioVM.Email, usuarioVM.Senha, usuarioVM.Perfil);
+
+            return Ok();
+        }
+
+        #endregion Profile
     }
 }

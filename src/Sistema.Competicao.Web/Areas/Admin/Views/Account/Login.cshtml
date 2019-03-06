@@ -1,5 +1,7 @@
 ﻿@model Sistema.Competicao.Web.Areas.Admin.Models.UsuarioVM
 
+<link rel="stylesheet" href="~/css/admin.min.css" asp-append-version="true" />
+
 <div id="appLogin" style="overflow:hidden;width:100%; text-align:center;z-index:0;position:absolute;">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -14,15 +16,20 @@
                 <p style="color:gray;">Entre com Login e Senha para acesso administrativo</p>
                 <br />
                 <section>
-                    <form id="frmLogin" asp-controller="Account" asp-action="Login" method="post" class="form">
+                    <form id="frmLogin" asp-controller="Account" asp-action="Login" method="post" class="form" data-ajax="true"
+                          data-ajax-method="POST" data-ajax-failure="formOnFail" data-ajax-success="window.location = '/Admin/Home/Dashboard'">
+
                         <div class="form-group">
                             <input asp-for="Login" class="form-control" placeholder="Login" name="Login" type="text" v-model="Login" v-validate="'required'" autofocus>
                             <span v-show="errors.has('Login')" class="alert-form">{{ errors.first('Login') }}</span>
                         </div>
                         <div class="form-group">
-                            <input asp-for="Senha" class="form-control" placeholder="Senha" name="Senha" type="password" v-model="Senha" v-validate="'required'">
+                            <input asp-for="Senha" class="form-control" placeholder="Senha" name="Senha" type="password" autocomplete="on" v-model="Senha" v-validate="'required'">
                             <span v-show="errors.has('Senha')" class="alert-form">{{ errors.first('Senha') }}</span>
                         </div>
+                        <br />
+
+                        <span>@ViewBag.Mensagem</span>
 
                         <div class="modal-footer">
                             <button class="Botao Botao-Login" style="width:100%" v-on:click="validarDados">Entrar</button>
@@ -41,31 +48,6 @@
     </div>
 </div>
 
-<script>
-    //import de biblioteca de validação e mask
-    Vue.use(VeeValidate);
-
-    //funcionalidades formulario Dados da Empresa (validations)
-    var appLogin = new Vue({
-        el: '#appLogin',
-        data: {
-            Login: '',
-            Senha: ''
-        },
-        methods: {
-            validarDados: function (e) {
-                console.log("Passou");
-                this.$validator.localize('pt_BR');
-                console.log("Passou 1");
-                this.$validator.validate().then(result => {
-                    console.log("Passou2");
-                    e.preventDefault();
-                    //se passou em todas as validações
-                    if (result) {
-                        $("#frmLogin").submit();
-                    }
-                });
-            }
-        }
-    });
-</script>
+@section Scripts{
+    <script src="~/js/Login.vue.js"></script>
+}
