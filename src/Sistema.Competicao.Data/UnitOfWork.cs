@@ -13,9 +13,9 @@ namespace Sistema.Competicao.Data
             _dbContext = dbContext;
         }
 
-        public async Task Commit()
+        public void Commit()
         {
-            await _dbContext.SaveChangesAsync();
+            _dbContext.SaveChanges();
         }
     }
 }

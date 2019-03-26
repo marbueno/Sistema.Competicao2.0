@@ -12,68 +12,71 @@
                 <div class="card-header">
                     <h5 class="title">Editar Profile</h5>
                 </div>
-                <form id="frmProfile" asp-controller="Account" asp-action="ProfileUpdate" method="post" class="form" data-ajax="true"
-                      data-ajax-method="POST" data-ajax-failure="formOnFail" data-ajax-success="window.location = '/Admin/Account/Profile'">
-                    <div class="card-body">
-                        <div class="row">
-                            <input type="hidden" class="form-control" asp-for="Codigo">
-                            <div class="col-md-6 pr-md-1">
-                                <div class="form-group">
-                                    <label>Login (desabilitado)</label>
-                                    <input type="text" class="form-control" disabled="" placeholder="Login" asp-for="Login" value="@Model.Login">
+                <section>
+                    <form id="frmProfile" action="ProfileUpdate" method="post" class="form" data-ajax="true"
+                          data-ajax-method="POST" data-ajax-failure="formOnFail" data-ajax-success="window.location = '/Admin/Account/Profile'">
+                        <div class="card-body">
+                            <div class="row">
+                                <input type="hidden" asp-for="Codigo" name="Codigo" value="@Model.Codigo" />
+                                <input type="hidden" class="form-control" asp-for="Codigo">
+                                <div class="col-md-6 pr-md-1">
+                                    <div class="form-group">
+                                        <label>Login (desabilitado)</label>
+                                        <input type="text" class="form-control" disabled="" placeholder="Login" asp-for="Login" value="@Model.Login">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 pr-md-1">
+                                    <div class="form-group">
+                                        <label for="Email">E-Mail</label>
+                                        <input type="email" class="form-control" placeholder="exemplo@mail.com.br" asp-for="Email" name="Email" value="@Model.Email" v-validate="'required'">
+                                        <span v-show="errors.has('Email')" class="alert-form">{{ errors.first('Email') }}</span>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-6 pr-md-1">
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">E-Mail</label>
-                                    <input type="email" class="form-control" placeholder="exemplo@mail.com.br" asp-for="Email" name="Email" value="@Model.Email" v-validate="'required'">
-                                    <span v-show="errors.has('Email')" class="alert-form">{{ errors.first('Email') }}</span>
+                            <div class="row">
+                                <div class="col-md-6 pr-md-1">
+                                    <div class="form-group">
+                                        <label for="Nome">Nome</label>
+                                        <input type="text" class="form-control" placeholder="Nome Completo" asp-for="Nome" name="Nome" value="@Model.Nome" v-validate="'required'">
+                                        <span v-show="errors.has('Nome')" class="alert-form">{{ errors.first('Nome') }}</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 pr-md-1">
+                                    <div class="form-group">
+                                        <label>Perfil</label>
+                                        <select class="form-control" style="cursor:pointer;">
+                                            <option value="1">Administrador</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-6 pr-md-1">
-                                <div class="form-group">
-                                    <label>Nome</label>
-                                    <input type="text" class="form-control" placeholder="Nome Completo" asp-for="Nome" name="Nome" value="@Model.Nome" v-validate="'required'">
-                                    <span v-show="errors.has('Nome')" class="alert-form">{{ errors.first('Nome') }}</span>
-                                </div>
-                            </div>
-                            <div class="col-md-6 pr-md-1">
-                                <div class="form-group">
-                                    <label>Perfil</label>
-                                    <select class="form-control" style="cursor:pointer;">
-                                        <option value="1">Administrador</option>
-                                    </select>
-                                </div>
-                            </div>
+                        <div class="card-footer">
+                            <button class="btn btn-fill btn-primary" v-on:click="validarDados">Alterar</button>
                         </div>
-                    </div>
-                    <div class="card-footer">
-                        <button type="submit" class="btn btn-fill btn-primary" v-on:click="validarDados">Alterar</button>
-                    </div>
-                </form>
+                    </form>
+                </section>
             </div>
         </div>
-    </div>
-    <div class="col-md-4">
-        <div class="card card-user">
-            <div class="card-body">
-                <p class="card-text">
-                    <div class="author">
-                        <div class="block block-one"></div>
-                        <div class="block block-two"></div>
-                        <div class="block block-three"></div>
-                        <div class="block block-four"></div>
-                        <a href="javascript:void(0)">
-                            <img class="avatar" src="~/images/default-avatar.png" alt="Marcelo Bueno">
-                            <h5 class="title">Marcelo Bueno</h5>
-                        </a>
-                <p class="description">
-                    Administrador
+        <div class="col-md-4">
+            <div class="card card-user">
+                <div class="card-body">
+                    <p class="card-text">
+                        <div class="author">
+                            <div class="block block-one"></div>
+                            <div class="block block-two"></div>
+                            <div class="block block-three"></div>
+                            <div class="block block-four"></div>
+                            <a href="javascript:void(0)">
+                                <img class="avatar" src="~/images/default-avatar.png" alt="Marcelo Bueno">
+                                <h5 class="title">Marcelo Bueno</h5>
+                            </a>
+                    <p class="description">
+                        Administrador
+                    </p>
+                </div>
                 </p>
             </div>
-            </p>
         </div>
     </div>
 </div>

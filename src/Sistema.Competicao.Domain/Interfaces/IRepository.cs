@@ -8,7 +8,9 @@ namespace Sistema.Competicao.Domain
     public interface IRepository<TEntity>
     {
         TEntity GetByID(int id);
+        void Edit(TEntity entity);
         void Save(TEntity entity);
+        void Delete(TEntity entity);
         IQueryable Where(Expression<Func<TEntity, bool>> expression);
     }
 }

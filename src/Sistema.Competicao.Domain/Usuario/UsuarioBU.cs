@@ -3,13 +3,15 @@
     public class UsuarioBU
     {
         private readonly IRepository<UsuarioEN> _repositoryUsuarioEN;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public UsuarioBU (IRepository<UsuarioEN> repositoryUsuarioEN)
+        public UsuarioBU (IRepository<UsuarioEN> repositoryUsuarioEN, IUnitOfWork unitOfWork)
         {
             _repositoryUsuarioEN = repositoryUsuarioEN;
+            _unitOfWork = unitOfWork;
         }
 
-        public void Save(int usuCodigo, string usuNome, string usuLogin, string usuEmail, string usuSenha, int perCodigo)
+        public async void Save(int usuCodigo, string usuNome, string usuLogin, string usuEmail, string usuSenha, int perCodigo)
         {
             UsuarioEN usuarioEN = _repositoryUsuarioEN.GetByID(usuCodigo);
 
@@ -20,9 +22,11 @@
                         usuNome, 
                         usuarioEN.usuLogin,
                         usuEmail,
-                        usuSenha, 
-                        perCodigo
+                        usuarioEN.usuSenha,
+                        usuarioEN.perCodigo
                     );
+
+                _repositoryUsuarioEN.Edit(usuarioEN);
             }
             else
             {
@@ -34,9 +38,10 @@
                         usuSenha, 
                         perCodigo
                     );
-            }
 
-            _repositoryUsuarioEN.Save(usuarioEN);
+                _repositoryUsuarioEN.Save(usuarioEN);
+            }
+            _unitOfWork.Commit();
         }
     }
 }

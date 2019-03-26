@@ -28,6 +28,7 @@ namespace Sistema.Competicao.Data
 
             var claims = new List<Claim>
             {
+                new Claim("ID", usuario.FirstOrDefault().usuCodigo.ToString()),
                 new Claim(ClaimTypes.Name, usuario.FirstOrDefault().usuLogin),
                 new Claim(ClaimTypes.Email, usuario.FirstOrDefault().usuEmail),
                 new Claim("FullName", usuario.FirstOrDefault().usuNome),
@@ -35,15 +36,14 @@ namespace Sistema.Competicao.Data
             };
 
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-            _httpContextAccessor.HttpContext.Session.SetInt32("usuCodigo", usuario.FirstOrDefault().usuCodigo);
 
             await _httpContextAccessor.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
         }
 
         public UsuarioEN GetUserLogged()
         {
-            var usuCodigo = _httpContextAccessor.HttpContext.Session.GetInt32("usuCodigo");
-            UsuarioEN usuarioEN = _dbContext.Set<UsuarioEN>().Find(usuCodigo);
+            var usuCodigo =  _httpContextAccessor.HttpContext.User.Identities.FirstOrDefault().Claims.Where(x => x.Type == "ID").FirstOrDefault().Value;
+            UsuarioEN usuarioEN = _dbContext.Set<UsuarioEN>().Find(int.Parse(usuCodigo));
 
             return usuarioEN;
         }

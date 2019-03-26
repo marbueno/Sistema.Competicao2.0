@@ -58,7 +58,6 @@ namespace Sistema.Competicao.Web.Areas.Admin.Controllers
 
         #endregion Authentication
 
-
         #region Profile
 
         public IActionResult Profile()

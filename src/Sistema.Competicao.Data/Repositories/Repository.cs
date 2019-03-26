@@ -20,9 +20,19 @@ namespace Sistema.Competicao.Data
             return _dbContext.Set<TEntity>().Find(id);
         }
 
+        public virtual void Edit(TEntity entity)
+        {
+            _dbContext.Set<TEntity>().Attach(entity);
+        }
+
         public virtual void Save(TEntity entity)
         {
             _dbContext.Set<TEntity>().Add(entity);
+        }
+
+        public virtual void Delete(TEntity entity)
+        {
+            _dbContext.Set<TEntity>().Remove(entity);
         }
 
         public virtual IQueryable Where(Expression<Func<TEntity, bool>> expression)

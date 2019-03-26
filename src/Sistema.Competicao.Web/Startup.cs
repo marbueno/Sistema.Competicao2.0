@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Sistema.Competicao.DI;
+using Sistema.Competicao.Domain;
 using Sistema.Competicao.Web.Filters;
 
 namespace Sistema.Competicao.Web
