@@ -1,5 +1,10 @@
-﻿@{ 
+﻿@using Microsoft.Extensions.Configuration
+
+@inject IConfiguration _configuration
+
+@{ 
     var userLogged = Context.User.Identities.Any(x => x.IsAuthenticated);
+    var nomeEquipe = _configuration.GetValue<string>("NomeEquipe");
 }
 
 <!DOCTYPE html>
@@ -13,7 +18,7 @@
     <link rel="apple-touch-icon" sizes="76x76" href="~/images/Icone.png">
     <link rel="icon" type="image/png" href="~/images/Icone.png">
     <link rel="shortcut icon" href="~/images/Icone.png">
-    <title>@ViewBag.NomeEquipe - Admin</title>
+    <title>@nomeEquipe - Admin</title>
 
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/solid.css" integrity="sha384-wnAC7ln+XN0UKdcPvJvtqIH3jOjs9pnKnq9qX68ImXvOGz2JuFoEiCjT8jyZQX2z" crossorigin="anonymous">
@@ -34,80 +39,42 @@
 <body>
     @if (userLogged)
     {
-
-        @*<div id="wrapper">
-                <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
-                            <span class="sr-only">Menu</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <a class="navbar-brand logo" href="~/Admin/Dashboard" style="height:70px;width:250px;text-align:center;">@ViewBag.NomeEquipe</a>
-                    </div>
-
-                    <ul id="menuLogin" class="nav navbar-top-links navbar-right">
-                        <li class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
-                            </a>
-                            <ul class="dropdown-menu dropdown-user">
-                                <li><a href="#"><i class="fa fa-users fa-fw"></i> Adicionar Usuário</a></li>
-                                <li><a href="#"><i class="fa fa-lock fa-fw"></i> Mudar Senha</a></li>
-                                <li><a href="~/Admin/Account/Logout"><i class="fa fa-sign-out fa-fw"></i> Sair</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-
-                    <div class="navbar-default navbar-static-side" id="navbar-default" role="navigation">
-                        <div class="sidebar-collapse">
-                            <ul class="nav" id="side-menu">
-                                <li>
-                                    <a href="~/Administrativo/Dashboard"><i style="padding-right:10px;" class="fa fa-home fa-fw"></i>Home</a>
-                                </li>
-                                <li>
-                                    <a href="#"><i style="padding-right:10px;" class="glyphicon glyphicon-book"></i>Cadastros<span class="fa arrow"></span></a>
-                                    <ul class="nav nav-second-level">
-                                        <li>
-                                            <a href="~/Cadastros/Adversario"><i style="padding-right:10px;" class="fa fa-list-alt"></i>Adversários</a>
-                                        </li>
-                                        <li>
-                                            <a href="~/Cadastros/Atletas"><i style="padding-right:10px;" class="fa fa-list-alt"></i>Atletas</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="#"><i style="padding-right:10px;" class="glyphicon glyphicon-cog"></i>Configurações<span class="fa arrow"></span></a>
-                                    <ul class="nav nav-second-level">
-                                        <li>
-                                            <a href="~/Configuracoes/Email"><i style="padding-right:10px;" class="fa fa-list-alt"></i>E-Mail</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </nav>
-                @RenderBody()
-            </div>*@
-
-
         <div class="wrapper">
             <div class="sidebar">
                 <div class="sidebar-wrapper">
                     <div class="logo">
-                        <a href="javascript:void(0)" class="simple-text logo-mini"></a>
-                        <a href="javascript:void(0)" class="simple-text logo-normal">
-                            @ViewBag.NomeEquipe
+                        <a href="javascript:void(0)" class="simple-text logo-mini"><img src="~/images/LogoTipo.jpg" /></a>
+                        <a href="/Admin/Home/Dashboard" class="simple-text logo-normal">
+                            @nomeEquipe
                         </a>
                     </div>
                     <ul class="nav">
-                        <li class="active ">
+                        <li class="active">
                             <a href="/Admin/Home/Dashboard">
                                 <i class="tim-icons icon-chart-pie-36"></i>
                                 <p>Dashboard</p>
                             </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-item" data-toggle="collapse" aria-expanded="true" href="#cadastros">
+                                <i class="tim-icons icon-align-center"></i>
+                                <p>Cadastros</p>
+                                <b class="caret"></b>
+                            </a>
+                            <div class="collapse" id="cadastros" style="">
+                                <ul class="nav">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#">
+                                            <span class="sidebar-normal">Buttons</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#">
+                                            <span class="sidebar-normal">Grid System</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
                         </li>
                         <li>
                             <a href="./icons.html">
