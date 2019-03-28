@@ -9,7 +9,7 @@ gulp.task('browserSync', function () {
         proxy: 'localhost:5000'
     });
 
-    gulp.watch('./Styles/**/*.css', ['css', 'cssadmin']);
+    gulp.watch('./Styles/**/*.css', ['css', 'csslogin', 'cssadmin']);
     gulp.watch('./Scripts/**/*.js', ['js']);
 });
 
@@ -23,10 +23,12 @@ gulp.task('js', function(){
         './node_modules/vue/dist/vue.min.js',
         './node_modules/vee-validate/dist/vee-validate.min.js',
         './node_modules/vee-validate/dist/locale/pt_BR.js',
+        './node_modules/datatables.net-dt/js/dataTables.dataTables.min.js',
         './Scripts/jquery-ui.js',
         './Scripts/jquery.metisMenu.js',
         './Scripts/Main.vue.js',
         './Scripts/Login.vue.js',
+        './Scripts/Profile.vue.js',
         './Scripts/site.js'
     ])
     .pipe(gulp.dest('wwwroot/js/'))
@@ -45,15 +47,27 @@ gulp.task('css', function(){
     .pipe(browserSync.stream());
 });
 
-gulp.task('cssadmin', function () {
+gulp.task('csslogin', function () {
     return gulp.src([
         './node_modules/bootstrap/dist/css/bootstrap.css',
         './Styles/jquery-ui.css',
         './Styles/admin.css'
     ])
-        .pipe(concat('admin.min.css'))
-        .pipe(cssmin())
-        //.pipe(uncss({ html: ['Areas/Admin/Views/**/*.cshtml'] }))
-        .pipe(gulp.dest('wwwroot/css'))
-        .pipe(browserSync.stream());
+    .pipe(concat('login.min.css'))
+    .pipe(cssmin())
+    //.pipe(uncss({ html: ['Areas/Admin/Views/**/*.cshtml'] }))
+    .pipe(gulp.dest('wwwroot/css'))
+    .pipe(browserSync.stream());
+});
+
+gulp.task('cssadmin', function () {
+    return gulp.src([
+        './node_modules/datatables.net-dt/css/jquery.dataTables.min.css',
+        './Styles/spinner.css',
+        './Styles/black-dashboard.css'
+    ])
+    .pipe(concat('admin.min.css'))
+    .pipe(cssmin())
+    .pipe(gulp.dest('wwwroot/css'))
+    .pipe(browserSync.stream());
 });

@@ -1,12 +1,9 @@
-﻿using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Sistema.Competicao.DI;
-using Sistema.Competicao.Domain;
 using Sistema.Competicao.Web.Filters;
 
 namespace Sistema.Competicao.Web
@@ -30,7 +27,6 @@ namespace Sistema.Competicao.Web
             });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,7 +44,6 @@ namespace Sistema.Competicao.Web
 
             app.UseStaticFiles();
             app.UseAuthentication();
-            app.UseSession();
 
             app.UseMvc(routes =>
             {
