@@ -1,5 +1,6 @@
 using Sistema.Competicao.Domain;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -38,6 +39,16 @@ namespace Sistema.Competicao.Data
         public virtual IQueryable Where(Expression<Func<TEntity, bool>> expression)
         {
             return _dbContext.Set<TEntity>().Where(expression);
+        }
+
+        public virtual IEnumerable<TEntity> All()
+        {
+            var query = _dbContext.Set<TEntity>();
+
+            if (query.Any())
+                return query.ToList();
+
+            return new List<TEntity>();
         }
     }
 }

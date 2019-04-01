@@ -1,12 +1,14 @@
-﻿namespace Sistema.Competicao.Domain
+﻿namespace Sistema.Competicao.Domain.Account
 {
     public class PerfilBU
     {
         private readonly IRepository<PerfilEN> _repositoryPerfilEN;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public PerfilBU(IRepository<PerfilEN> repositoryPerfilEN)
+        public PerfilBU(IRepository<PerfilEN> repositoryPerfilEN, IUnitOfWork unitOfWork)
         {
             _repositoryPerfilEN = repositoryPerfilEN;
+            _unitOfWork = unitOfWork;
         }
 
         public void Save(int perCodigo, string perDescricao)
@@ -19,6 +21,8 @@
                     (
                         perDescricao
                     );
+
+                _repositoryPerfilEN.Edit(perfilEN);
             }
             else
             {
@@ -26,9 +30,11 @@
                     (
                         perDescricao
                     );
+
+                _repositoryPerfilEN.Save(perfilEN);
             }
 
-            _repositoryPerfilEN.Save(perfilEN);
+            _unitOfWork.Commit();
         }
     }
 }

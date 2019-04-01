@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Sistema.Competicao.Domain
+namespace Sistema.Competicao.Domain.Account
 {
     public class UsuarioEN
     {

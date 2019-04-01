@@ -1,6 +1,5 @@
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Sistema.Competicao.Domain;
+using Sistema.Competicao.Domain.Account;
 
 namespace Sistema.Competicao.Data
 {
@@ -10,8 +9,14 @@ namespace Sistema.Competicao.Data
         {
         }
 
+        #region Account
+
         public DbSet<UsuarioEN> tblUsuario { get; set; }
-        public DbSet<QuadraEN> tblQuadra { get; set; }
+        public DbSet<PerfilEN> tblPerfil { get; set; }
+
+        #endregion Account
+
+        //public DbSet<QuadraEN> tblQuadra { get; set; }
         //public DbSet<AdversarioEN> tblAdversario { get; set; }
     }
 }

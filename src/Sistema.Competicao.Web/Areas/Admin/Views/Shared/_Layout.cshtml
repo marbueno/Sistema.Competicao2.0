@@ -75,8 +75,8 @@
         @RenderBody()
     }
 
-    <div id="appLoading">
-        <div class="modal fade in" v-if="visible" role="dialog" aria-hidden="false" style="background: rgba(0, 0, 0, 0.3); display:block">
+    <div id="appMain">
+        <div class="modal fade in" v-if="loadingVisible" role="dialog" aria-hidden="false" style="background: rgba(0, 0, 0, 0.3); display:block">
             <div style="width:100%; text-align:center;">
                 <div style="top:200px;overflow:hidden;width:100%; text-align:center;z-index:-1;position:relative;">
                     <div style="width:100%; height:100%;">

@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using Sistema.Competicao.Domain.Account;
+using System.Threading.Tasks;
 
 namespace Sistema.Competicao.Domain
 {

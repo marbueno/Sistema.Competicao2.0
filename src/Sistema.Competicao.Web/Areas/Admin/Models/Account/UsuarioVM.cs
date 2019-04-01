@@ -1,4 +1,4 @@
-﻿namespace Sistema.Competicao.Web.Areas.Admin.Models
+﻿namespace Sistema.Competicao.Web.Areas.Admin.Models.Account
 {
     public class UsuarioVM
     {

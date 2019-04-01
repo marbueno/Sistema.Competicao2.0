@@ -5,7 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="Scripts\Profile.vue.js" />
+    <None Remove="Scripts\Account\Perfil.vue.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Scripts\Account\Perfil.vue.js" />
+    <Content Include="Scripts\Account\Profile.vue.js" />
     <Content Include="Styles\black-dashboard.css" />
   </ItemGroup>
 
@@ -15,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Areas\Admin\Views\Administracao\" />
     <Folder Include="wwwroot\css\" />
   </ItemGroup>
 

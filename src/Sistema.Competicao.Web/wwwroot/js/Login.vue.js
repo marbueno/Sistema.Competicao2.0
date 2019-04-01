@@ -18,7 +18,7 @@ var appLogin = new Vue({
                 e.preventDefault();
                 //se passou em todas as validações
                 if (result) {
-                    appLoading.visible = true;
+                    appMain.loadingVisible = true;
                     $("#frmLogin").submit();
                 }
             });

@@ -1,13 +1,12 @@
-//import de biblioteca de validação e mask
+﻿//import de biblioteca de validação e mask
 Vue.use(VeeValidate);
 
 //funcionalidades formulario Dados da Empresa (validations)
-var appProfile = new Vue({
-    el: '#appProfile',
+var appLogin = new Vue({
+    el: '#appLogin',
     data: {
-        Email: '',
-        Nome: '',
-        Perfil: 0
+        Login: '',
+        Senha: ''
     },
     methods: {
         validarDados: function (e) {
@@ -19,8 +18,8 @@ var appProfile = new Vue({
                 e.preventDefault();
                 //se passou em todas as validações
                 if (result) {
-                    appLoading.visible = true;
-                    $("#frmProfile").submit();
+                    appMain.loadingVisible = true;
+                    $("#frmLogin").submit();
                 }
             });
         }

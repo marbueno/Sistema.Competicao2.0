@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -12,5 +13,6 @@ namespace Sistema.Competicao.Domain
         void Save(TEntity entity);
         void Delete(TEntity entity);
         IQueryable Where(Expression<Func<TEntity, bool>> expression);
+        IEnumerable<TEntity> All();
     }
 }

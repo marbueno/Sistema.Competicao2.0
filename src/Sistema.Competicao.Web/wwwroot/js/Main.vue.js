@@ -1,9 +1,46 @@
-var appLoading = new Vue({
-    el: '#appLoading',
+//Configuração VueValidation
+
+const config = {
+    locale: 'pt_BR'
+};
+
+Vue.use(VeeValidate, config);
+
+
+var appMain = new Vue({
+    el: '#appMain',
     data: {
-        visible: false
+        loadingVisible: false,
+        newRegister: false,
+        formName: ''
+    },
+    methods: {
+
+        showForm: function (e) {
+            this.newRegister = true;
+        },
+
+        validateData: function (e, form) {
+
+            form.$validator.validate().then(result => {
+
+                e.preventDefault();
+                //se passou em todas as validações
+                if (result) {
+                    this.loadingVisible = true;
+                    $(this.formName).submit();
+                }
+            });
+        },
+
+        cancelForm: function (e) {
+            this.newRegister = false;
+            e.preventDefault();
+            return false;
+        }
     }
 });
+
 
 $(function () {
     $('#side-menu').metisMenu();

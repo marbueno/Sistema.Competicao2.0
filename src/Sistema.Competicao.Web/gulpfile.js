@@ -27,8 +27,11 @@ gulp.task('js', function(){
         './Scripts/jquery-ui.js',
         './Scripts/jquery.metisMenu.js',
         './Scripts/Main.vue.js',
-        './Scripts/Login.vue.js',
-        './Scripts/Profile.vue.js',
+
+        './Scripts/Account/Login.vue.js',
+        './Scripts/Account/Profile.vue.js',
+        './Scripts/Account/Perfil.vue.js',
+
         './Scripts/site.js'
     ])
     .pipe(gulp.dest('wwwroot/js/'))
@@ -51,7 +54,7 @@ gulp.task('csslogin', function () {
     return gulp.src([
         './node_modules/bootstrap/dist/css/bootstrap.css',
         './Styles/jquery-ui.css',
-        './Styles/admin.css'
+        './Styles/login.css'
     ])
     .pipe(concat('login.min.css'))
     .pipe(cssmin())

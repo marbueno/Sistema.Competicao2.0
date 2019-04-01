@@ -1,4 +1,4 @@
-﻿namespace Sistema.Competicao.Domain
+﻿namespace Sistema.Competicao.Domain.Account
 {
     public class UsuarioBU
     {
@@ -41,6 +41,7 @@
 
                 _repositoryUsuarioEN.Save(usuarioEN);
             }
+
             _unitOfWork.Commit();
         }
     }

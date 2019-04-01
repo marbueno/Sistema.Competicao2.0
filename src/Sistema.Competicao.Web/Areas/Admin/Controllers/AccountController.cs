@@ -1,8 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Sistema.Competicao.Domain;
-using Sistema.Competicao.Web.Areas.Admin.Models;
+using Sistema.Competicao.Domain.Account;
+using Sistema.Competicao.Web.Areas.Admin.Models.Account;
 
 namespace Sistema.Competicao.Web.Areas.Admin.Controllers
 {
@@ -12,19 +14,21 @@ namespace Sistema.Competicao.Web.Areas.Admin.Controllers
 
         private readonly IConfiguration _configuration;
         private readonly IAuthentication _authentication;
-        private readonly IRepository<UsuarioEN> _usuarioRepository;
         private readonly UsuarioBU _usuarioBU;
+        private readonly IRepository<PerfilEN> _perfilRepository;
+        private readonly PerfilBU _perfilBU;
 
         #endregion Variables
 
         #region Constructor
 
-        public AccountController(IConfiguration configuration, IAuthentication authentication, IRepository<UsuarioEN> usuarioRepository, UsuarioBU usuarioBU)
+        public AccountController(IConfiguration configuration, IAuthentication authentication, UsuarioBU usuarioBU, IRepository<PerfilEN> perfilRepository, PerfilBU perfilBU)
         {
             _configuration = configuration;
             _authentication = authentication;
-            _usuarioRepository = usuarioRepository;
             _usuarioBU = usuarioBU;
+            _perfilRepository = perfilRepository;
+            _perfilBU = perfilBU;
         }
 
         #endregion Constructor
@@ -85,5 +89,24 @@ namespace Sistema.Competicao.Web.Areas.Admin.Controllers
         }
 
         #endregion Profile
+
+        #region Perfil
+
+        public IActionResult Perfil()
+        {
+            var listPerfil = _perfilRepository.All();
+            var perfilVM = listPerfil.Select(c => new PerfilVM { Codigo = c.perCodigo, Nome = c.perNome });
+            return View(perfilVM);
+        }
+
+        [HttpPost]
+        public IActionResult PerfilUpdate(PerfilVM perfilVM)
+        {
+            _perfilBU.Save(perfilVM.Codigo, perfilVM.Nome);
+
+            return Ok();
+        }
+
+        #endregion Perfil
     }
 }
