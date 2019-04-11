@@ -12,6 +12,7 @@ namespace Sistema.Competicao.Domain
         void Edit(TEntity entity);
         void Save(TEntity entity);
         void Delete(TEntity entity);
+        void Delete(int id);
         IQueryable Where(Expression<Func<TEntity, bool>> expression);
         IEnumerable<TEntity> All();
     }

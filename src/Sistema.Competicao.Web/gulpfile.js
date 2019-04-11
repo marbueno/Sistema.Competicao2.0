@@ -32,6 +32,7 @@ gulp.task('js', function(){
         './Scripts/Account/Login.vue.js',
         './Scripts/Account/Profile.vue.js',
         './Scripts/Account/Perfil.vue.js',
+        './Scripts/Account/Usuario.vue.js',
 
         './Scripts/site.js'
     ])

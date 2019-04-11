@@ -43,7 +43,16 @@ var appMain = new Vue({
             e.preventDefault();
 
             this.$nextTick(() => {
+                //DOM rendered
                 this.loadTable(this.tableName, this.tableData, this.tableColumns);
+            });
+        },
+
+        showModal: function () {
+            $('#divConfirmar').modal({
+                keyboard: false,
+                show: true,
+                backdrop: 'static'
             });
         },
 

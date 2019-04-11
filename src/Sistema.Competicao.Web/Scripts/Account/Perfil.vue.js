@@ -11,13 +11,13 @@ var appPerfil = new Vue({
                 {
                     "mDataProp": "Editar",
                     mRender: function (data, type, row) {
-                        return "<a href='#' onclick='appPerfil.edit(" + row.id + ")' title='Editar'>Editar</a>";
+                        return "<a href='#' onclick='appPerfil.editRegister(" + row.id + ")' title='Editar'>Editar</a>";
                     }
                 },
                 {
                     "mDataProp": "Excluir",
                     mRender: function (data, type, row) {
-                        return "<a href='#' onclick='appPerfil.delete(" + row.id + ")' title='Excluir'>Excluir</a>";
+                        return "<a href='#' onclick='appPerfil.deleteRegister(" + row.id + ", false)' title='Excluir'>Excluir</a>";
                     }
                 }
             ]
@@ -31,10 +31,25 @@ var appPerfil = new Vue({
             appMain.showForm();
         },
 
-        edit: function (id) {
+        editRegister: function (id) {
             this.Codigo = this.listPerfil[id].codigo;
             this.Nome = this.listPerfil[id].nome;
             appMain.showForm();
+        },
+
+        deleteRegister: function (id, confirmed) {
+            if (confirmed === false) {
+                this.Codigo = this.listPerfil[id].codigo;
+                appMain.showModal();
+            }
+            else {
+                appMain.loadingVisible = true;
+                fetch('/Account/PerfilRemove/' + this.Codigo, { method: 'delete'})
+                    .then(data =>
+                    {
+                        window.location.href = '/Admin/Account/Perfil';
+                    });
+            }
         }
     },
 

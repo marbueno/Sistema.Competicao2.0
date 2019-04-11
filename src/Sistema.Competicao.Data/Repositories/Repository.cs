@@ -34,6 +34,13 @@ namespace Sistema.Competicao.Data
         public virtual void Delete(TEntity entity)
         {
             _dbContext.Set<TEntity>().Remove(entity);
+            _dbContext.SaveChanges();
+        }
+
+        public virtual void Delete(int id)
+        {
+            TEntity entity = GetByID(id);
+            Delete(entity);
         }
 
         public virtual IQueryable Where(Expression<Func<TEntity, bool>> expression)

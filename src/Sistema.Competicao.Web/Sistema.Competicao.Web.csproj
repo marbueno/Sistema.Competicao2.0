@@ -5,10 +5,19 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Scripts\Account\Perfil.vue.js" />
+    <Compile Remove="Areas\Admin\Views\Administracao\**" />
+    <Content Remove="Areas\Admin\Views\Administracao\**" />
+    <EmbeddedResource Remove="Areas\Admin\Views\Administracao\**" />
+    <None Remove="Areas\Admin\Views\Administracao\**" />
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Scripts\Account\Perfil.vue.js" />
+    <None Remove="Scripts\Account\Usuario.vue.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Scripts\Account\Usuario.vue.js" />
     <Content Include="Scripts\Account\Perfil.vue.js" />
     <Content Include="Scripts\Account\Profile.vue.js" />
     <Content Include="Styles\black-dashboard.css" />
@@ -16,11 +25,10 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.9" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Admin\Views\Administracao\" />
     <Folder Include="wwwroot\css\" />
   </ItemGroup>
 

@@ -48,6 +48,14 @@ var appMain = new Vue({
             });
         },
 
+        showModal: function () {
+            $('#divConfirmar').modal({
+                keyboard: false,
+                show: true,
+                backdrop: 'static'
+            });
+        },
+
         loadTable: function (tableName, tableData, tableColumns) {
 
             this.tableName = tableName;

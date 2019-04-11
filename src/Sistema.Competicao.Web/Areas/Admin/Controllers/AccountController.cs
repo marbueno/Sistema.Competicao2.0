@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -16,6 +17,7 @@ namespace Sistema.Competicao.Web.Areas.Admin.Controllers
 
         private readonly IConfiguration _configuration;
         private readonly IAuthentication _authentication;
+        private readonly IRepository<UsuarioEN> _usuarioRepository;
         private readonly UsuarioBU _usuarioBU;
         private readonly IRepository<PerfilEN> _perfilRepository;
         private readonly PerfilBU _perfilBU;
@@ -24,10 +26,11 @@ namespace Sistema.Competicao.Web.Areas.Admin.Controllers
 
         #region Constructor
 
-        public AccountController(IConfiguration configuration, IAuthentication authentication, UsuarioBU usuarioBU, IRepository<PerfilEN> perfilRepository, PerfilBU perfilBU)
+        public AccountController(IConfiguration configuration, IAuthentication authentication, IRepository<UsuarioEN> usuarioRepository, UsuarioBU usuarioBU, IRepository<PerfilEN> perfilRepository, PerfilBU perfilBU)
         {
             _configuration = configuration;
             _authentication = authentication;
+            _usuarioRepository = usuarioRepository;
             _usuarioBU = usuarioBU;
             _perfilRepository = perfilRepository;
             _perfilBU = perfilBU;
@@ -69,9 +72,6 @@ namespace Sistema.Competicao.Web.Areas.Admin.Controllers
 
         public IActionResult Profile()
         {
-            if (!_authentication.IsLoggedIn())
-                return Redirect("/Admin");
-
             UsuarioEN usuarioEN = _authentication.GetUserLogged();
             UsuarioVM usuarioVM = new UsuarioVM()
             {
@@ -98,10 +98,7 @@ namespace Sistema.Competicao.Web.Areas.Admin.Controllers
 
         public IActionResult Perfil()
         {
-            var listPerfil = _perfilRepository.All();
-            var perfilVM = listPerfil.Select(c => new PerfilVM { Codigo = c.perCodigo, Nome = c.perNome });
-            ViewBag.ListPerfil = Json(perfilVM);
-            return View(perfilVM);
+            return View();
         }
 
         public JsonResult ListPerfil()
@@ -112,13 +109,53 @@ namespace Sistema.Competicao.Web.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult PerfilUpdate(PerfilVM perfilVM)
+        public IActionResult PerfilCreateOrUpdate(PerfilVM perfilVM)
         {
             _perfilBU.Save(perfilVM.Codigo, perfilVM.Nome);
 
             return Ok();
         }
 
+        [HttpDelete]
+        public IActionResult PerfilRemove(int id)
+        {
+            _perfilRepository.Delete(id);
+
+            return Ok();
+        }
+
         #endregion Perfil
+
+        #region Usuario
+
+        public IActionResult Usuario()
+        {
+            return View();
+        }
+
+        public JsonResult ListUsuario()
+        {
+            var listUsuario = _usuarioRepository.All();
+            var usuarioVM = listUsuario.Select(c => new UsuarioVM { Codigo = c.usuCodigo, Nome = c.usuNome, Login = c.usuLogin, Email = c.usuEmail, Perfil = c.perCodigo });
+            return Json(usuarioVM);
+        }
+
+        [HttpPost]
+        public IActionResult UsuarioCreateOrUpdate(UsuarioVM usuarioVM)
+        {
+            _usuarioBU.Save(usuarioVM.Codigo, usuarioVM.Nome, usuarioVM.Login, usuarioVM.Email, usuarioVM.Senha, usuarioVM.Perfil);
+
+            return Ok();
+        }
+
+        [HttpDelete]
+        public IActionResult UsuarioRemove(int id)
+        {
+            _usuarioRepository.Delete(id);
+
+            return Ok();
+        }
+
+        #endregion Usuario
     }
 }
