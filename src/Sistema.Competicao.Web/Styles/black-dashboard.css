@@ -1,4 +1,4 @@
-/*
+f/*
  =========================================================
  * Black Dashboard - v1.0.0
  =========================================================
@@ -1641,28 +1641,28 @@ pre {
 .table {
     width: 100%;
     margin-bottom: 1rem;
-    background-color: transparent;
+    background-color: #27293d;
 }
 
-    .table th,
-    .table td {
-        padding: 1rem;
-        vertical-align: top;
-        border-top: 0.0625rem solid #e3e3e3;
-    }
+.table th,
+.table td {
+    padding: 1rem;
+    vertical-align: top;
+    border-top: 0.0625rem solid #e3e3e3;
+}
 
-    .table thead th {
-        vertical-align: bottom;
-        border-bottom: 0.125rem solid #e3e3e3;
-    }
+.table thead th {
+    vertical-align: bottom;
+    border-bottom: 0.125rem solid #e3e3e3;
+}
 
-    .table tbody + tbody {
-        border-top: 0.125rem solid #e3e3e3;
-    }
+.table tbody + tbody {
+    border-top: 0.125rem solid #e3e3e3;
+}
 
-    .table .table {
-        background-color: #1e1e2f;
-    }
+.table .table {
+    background-color: #1e1e2f;
+}
 
 .table-sm th,
 .table-sm td {
@@ -1673,15 +1673,15 @@ pre {
     border: 0.0625rem solid #e3e3e3;
 }
 
-    .table-bordered th,
-    .table-bordered td {
-        border: 0.0625rem solid #e3e3e3;
-    }
+.table-bordered th,
+.table-bordered td {
+    border: 0.0625rem solid #e3e3e3;
+}
 
-    .table-bordered thead th,
-    .table-bordered thead td {
-        border-bottom-width: 0.125rem;
-    }
+.table-bordered thead th,
+.table-bordered thead td {
+    border-bottom-width: 0.125rem;
+}
 
 .table-borderless th,
 .table-borderless td,
@@ -1708,10 +1708,10 @@ pre {
     background-color: #f3b7e9;
 }
 
-    .table-hover .table-primary:hover > td,
-    .table-hover .table-primary:hover > th {
-        background-color: #f3b7e9;
-    }
+.table-hover .table-primary:hover > td,
+.table-hover .table-primary:hover > th {
+    background-color: #f3b7e9;
+}
 
 .table-secondary,
 .table-secondary > th,
@@ -1723,10 +1723,10 @@ pre {
     background-color: #ededf3;
 }
 
-    .table-hover .table-secondary:hover > td,
-    .table-hover .table-secondary:hover > th {
-        background-color: #ededf3;
-    }
+.table-hover .table-secondary:hover > td,
+.table-hover .table-secondary:hover > th {
+    background-color: #ededf3;
+}
 
 .table-success,
 .table-success > th,
@@ -13188,7 +13188,7 @@ fieldset[disabled] .btn-success.active {
 }
 
 .form-control {
-    border-color: #2b3553;
+    border-color: #6c757d;
     border-radius: 0.4285rem;
     font-size: 0.75rem;
     -webkit-transition: color 0.3s ease-in-out, border-color 0.3s ease-in-out, background-color 0.3s ease-in-out;
@@ -14972,6 +14972,11 @@ textarea {
     font-family: "Poppins", sans-serif;
 }
 
+select {
+    cursor: pointer;
+    background-color: #27293d !important;
+}
+
 .card h1,
 .card h2,
 .card h3,
@@ -14993,14 +14998,14 @@ h6 {
 }
 
 a {
-    color: #ba54f5;
+    color: #fbea9b;
     font-weight: 300;
 }
 
-    a:hover,
-    a:focus {
-        color: #e14eca;
-    }
+a:hover,
+a:focus {
+    color: #fce475;
+}
 
 h1,
 .h1 {
@@ -18794,4 +18799,52 @@ Copyright (c) 2015 Daniel Eden
 
 .alert-form{
     color: indianred;
+}
+
+/* DataTables Overrides */
+
+table.dataTable tbody tr,
+table.dataTable thead .sorting,
+table.dataTable thead .sorting_asc,
+table.dataTable thead .sorting_desc,
+table.dataTable thead .sorting_asc_disabled,
+table.dataTable thead .sorting_desc_disabled {
+    background-color: transparent;
+}
+
+table.dataTable thead .sorting_asc:after {
+    content: "\f0de";
+    float: right;
+    font-family: fontawesome;
+}
+
+table.dataTable thead .sorting_desc:after {
+    content: "\f0dd";
+    float: right;
+    font-family: fontawesome;
+}
+
+table.dataTable thead .sorting:after {
+    content: "\f0dc";
+    float: right;
+    font-family: fontawesome;
+    color: rgba(50,50,50,.5);
+}
+
+.dataTables_wrapper,
+.dataTables_info,
+.dataTables_paginate´,
+.paging_simple_numbers,
+.paginate_button.disabled,
+.paginate_button {
+    color: rgba(255,255,255,.6) !important;
+}
+
+.selected{
+    background-color: #344675 !important;
+}
+
+.form-control-controls {
+    display: inline;
+    width: inherit;
 }

@@ -11,7 +11,7 @@
             _unitOfWork = unitOfWork;
         }
 
-        public async void Save(int usuCodigo, string usuNome, string usuLogin, string usuEmail, string usuSenha, int perCodigo)
+        public void Save(int usuCodigo, string usuNome, string usuLogin, string usuEmail, string usuSenha, int perCodigo)
         {
             UsuarioEN usuarioEN = _repositoryUsuarioEN.GetByID(usuCodigo);
 

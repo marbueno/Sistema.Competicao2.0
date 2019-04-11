@@ -39,36 +39,36 @@
 <body>
     @if (userLogged)
     {
-    <div class="wrapper">
+        <div class="wrapper">
 
-        @await Html.PartialAsync("~/Areas/Admin/Views/Shared/_MenuPartial.cshtml")
+            @await Html.PartialAsync("~/Areas/Admin/Views/Shared/_MenuPartial.cshtml")
 
-        <div class="main-panel">
+            <div class="main-panel">
 
-            @await Html.PartialAsync("~/Areas/Admin/Views/Shared/_HeaderPartial.cshtml")
+                @await Html.PartialAsync("~/Areas/Admin/Views/Shared/_HeaderPartial.cshtml")
 
-            @RenderBody()
+                @RenderBody()
 
-                    <!-- End Navbar -->
-                    @*<footer class="footer">
-                    <div class="container-fluid">
-                        <ul class="nav">
-                            <li class="nav-item">
-                                <a href="javascript:void(0)" class="nav-link">
-                                    TKM Solutions
-                                </a>
-                            </li>
-                        </ul>
-                        <div class="copyright">
-                            Sistema de Controle de Competição | Todos os direitos reservados | ©
-                            <script>
-                                document.write(new Date().getFullYear())
-                            </script>
+                <!-- End Navbar -->
+                @*<footer class="footer">
+                        <div class="container-fluid">
+                            <ul class="nav">
+                                <li class="nav-item">
+                                    <a href="javascript:void(0)" class="nav-link">
+                                        TKM Solutions
+                                    </a>
+                                </li>
+                            </ul>
+                            <div class="copyright">
+                                Sistema de Controle de Competição | Todos os direitos reservados | ©
+                                <script>
+                                    document.write(new Date().getFullYear())
+                                </script>
+                            </div>
                         </div>
-                    </div>
-                </footer>*@
+                    </footer>*@
+            </div>
         </div>
-    </div>
     }
     else
     {
@@ -104,6 +104,7 @@
     <script src="~/js/site.js"></script>
     <script src="~/js/jquery.metisMenu.js"></script>
     <script src="~/js/Main.vue.js"></script>
+    <script src="~/js/jquery.dataTables.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
     <!--  Core Plugins  -->

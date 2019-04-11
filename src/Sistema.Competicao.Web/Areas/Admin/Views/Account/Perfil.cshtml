@@ -6,49 +6,69 @@
 }
 
 
-<div id="appPerfil" class="content">
-
-    <div v-if="appMain.newRegister === false">
-        <div class="row">
-            <div class="col-md-12">
-                <button class="btn btn-fill btn-info" v-on:click="appMain.showForm">Novo Registro</button>
-            </div>
-        </div>
-    </div>
-
-    <div v-if="appMain.newRegister">
-
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h5 class="title">Editar Perfil</h5>
+    <div id="appPerfil" class="content">
+        
+        
+        <div class="card">
+            <div v-if="appMain.newRegister === false">
+                <div class="row">
+                    <div class="col-md-12" style="margin-left: 20px; margin-top: 20px;">
+                        <button class="btn btn-fill btn-info" v-on:click="newRegister()">Novo Registro</button>
                     </div>
-                    <section>
-                        <form id="frmPerfil" action="PerfilUpdate" method="post" class="form" data-ajax="true"
-                              data-ajax-method="POST" data-ajax-failure="formOnFail" data-ajax-success="window.location = '/Admin/Account/Perfil'">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-12 pr-md-1">
-                                        <div class="form-group">
-                                            <label for="Nome">Nome do Perfil</label>
-                                            <input type="text" class="form-control" placeholder="Nome do Perfil" asp-for="Nome" name="Nome" data-vv-as="Nome do Perfil" v-model="Nome" v-validate="'required'">
-                                            <span v-show="errors.has('Nome')" class="alert-form">{{ errors.first('Nome') }}</span>
+                </div>
+
+                <hr />
+
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="tblPerfil" class="table tablesorter" cellspacing="0" width="100%">
+                            <thead class="text-primary">
+                                <tr>
+                                    <th>Código</th>
+                                    <th>Nome</th>
+                                    <th style="width:15px;"></th>
+                                    <th style="width:15px;"></th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div v-if="appMain.newRegister">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card-header">
+                            <h5 class="title">Editar Perfil</h5>
+                        </div>
+                        <section>
+                            <form id="frmPerfil" action="PerfilUpdate" method="post" class="form" data-ajax="true"
+                                    data-ajax-method="POST" data-ajax-failure="formOnFail" data-ajax-success="window.location = '/Admin/Account/Perfil'">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <input type="hidden" class="form-control" v-model="Codigo">
+                                        <div class="col-md-12 pr-md-1">
+                                            <div class="form-group">
+                                                <label for="Nome">Nome do Perfil</label>
+                                                <input type="text" class="form-control" placeholder="Nome do Perfil" asp-for="Nome" name="Nome" data-vv-as="Nome do Perfil" v-model="Nome" v-validate="'required'">
+                                                <span v-show="errors.has('Nome')" class="alert-form">{{ errors.first('Nome') }}</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="card-footer">
-                                <button class="btn btn-fill btn-primary" v-on:click="appMain.validateData($event, this.appPerfil)">Salvar</button>
-                                <button class="btn btn-fill btn-info" v-on:click="appMain.cancelForm($event)">Cancelar</button>
-                            </div>
-                        </form>
-                    </section>
+                                <div class="card-footer">
+                                    <button class="btn btn-fill btn-primary" v-on:click="appMain.validateData($event, this.appPerfil)">Salvar</button>
+                                    <button class="btn btn-fill btn-info" v-on:click="appMain.cancelForm($event)">Cancelar</button>
+                                </div>
+                            </form>
+                        </section>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
 @section Scripts{
     <script src="~/js/Perfil.vue.js"></script>

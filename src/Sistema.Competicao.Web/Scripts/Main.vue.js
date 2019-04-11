@@ -1,4 +1,6 @@
-﻿//Configuração VueValidation
+﻿Vue.config.devtools = true;
+
+//Configuração VueValidation
 
 const config = {
     locale: 'pt_BR'
@@ -6,17 +8,19 @@ const config = {
 
 Vue.use(VeeValidate, config);
 
-
 var appMain = new Vue({
     el: '#appMain',
     data: {
         loadingVisible: false,
         newRegister: false,
-        formName: ''
+        formName: '',
+        tableName: '',
+        tableData: null,
+        tableColumns: null
     },
     methods: {
 
-        showForm: function (e) {
+        showForm: function () {
             this.newRegister = true;
         },
 
@@ -34,13 +38,71 @@ var appMain = new Vue({
         },
 
         cancelForm: function (e) {
+
             this.newRegister = false;
             e.preventDefault();
-            return false;
+
+            this.$nextTick(() => {
+                //DOM rendered
+                this.loadTable(this.tableName, this.tableData, this.tableColumns);
+            });
+        },
+
+        loadTable: function (tableName, tableData, tableColumns) {
+
+            this.tableName = tableName;
+            this.tableData = tableData;
+            this.tableColumns = tableColumns;
+
+            try {
+                $('#' + tableName).dataTable().fnClearTable();
+                $('#' + tableName).dataTable().fnDestroy();
+
+                $('#' + tableName).DataTable({
+                    "lengthMenu": [[20, -1], [20, "All"]],
+
+                    "language": {
+                        "lengthMenu": "Visualizar _MENU_ por pagina",
+                        "zeroRecords": "Nao ha registros",
+                        "info": "Mostrando de _START_ ate _END_ | Total de _TOTAL_ registros",
+                        "infoEmpty": "Nao ha registros",
+                        "infoFiltered": "(Filtrados de _MAX_ Total de Registros)",
+                        "loadingRecords": "Carregando...",
+                        "processing": "Processando Dados...",
+                        "thousands": ".",
+                        "search": "Procurar:",
+                        "paginate": {
+                            "first": "Primeiro",
+                            "last": "Ultimo",
+                            "next": "Proximo",
+                            "previous": "Anterior"
+                        }
+                    },
+
+                    "data": tableData,
+
+                    "columns": tableColumns
+                });
+
+                $('#tbl' + tableName + ' tbody').on('click', 'tr', function () {
+                    if ($(this).hasClass('selected')) {
+                        $(this).removeClass('selected');
+                    }
+                    else {
+                        $('#' + tableName).DataTable().$('tr.selected').removeClass('selected');
+                        $(this).addClass('selected');
+                    }
+                });
+
+                $('.dataTables_filter input').addClass('form-control form-control-controls');
+                $('.dataTables_length select').addClass('form-control form-control-controls');
+            }
+            catch (ex) {
+                console.log('Erro ao carregar tabela: ' + ex.message);
+            }
         }
     }
 });
-
 
 $(function () {
     $('#side-menu').metisMenu();

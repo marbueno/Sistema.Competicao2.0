@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Sistema.Competicao.Domain;
@@ -8,6 +9,7 @@ using Sistema.Competicao.Web.Areas.Admin.Models.Account;
 
 namespace Sistema.Competicao.Web.Areas.Admin.Controllers
 {
+    [Authorize]
     public class AccountController : Controller
     {
         #region Variables
@@ -35,6 +37,7 @@ namespace Sistema.Competicao.Web.Areas.Admin.Controllers
 
         #region Authentication
 
+        [AllowAnonymous]
         public IActionResult Login()
         {
             ViewBag.NomeEquipe = _configuration.GetValue<string>("NomeEquipe");
@@ -51,6 +54,7 @@ namespace Sistema.Competicao.Web.Areas.Admin.Controllers
             return Redirect("/Admin");
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Login(UsuarioVM usuarioVM)
         {
@@ -96,7 +100,15 @@ namespace Sistema.Competicao.Web.Areas.Admin.Controllers
         {
             var listPerfil = _perfilRepository.All();
             var perfilVM = listPerfil.Select(c => new PerfilVM { Codigo = c.perCodigo, Nome = c.perNome });
+            ViewBag.ListPerfil = Json(perfilVM);
             return View(perfilVM);
+        }
+
+        public JsonResult ListPerfil()
+        {
+            var listPerfil = _perfilRepository.All();
+            var perfilVM = listPerfil.Select(c => new PerfilVM { Codigo = c.perCodigo, Nome = c.perNome });
+            return Json(perfilVM);
         }
 
         [HttpPost]

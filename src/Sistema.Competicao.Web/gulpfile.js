@@ -23,6 +23,7 @@ gulp.task('js', function(){
         './node_modules/vue/dist/vue.min.js',
         './node_modules/vee-validate/dist/vee-validate.min.js',
         './node_modules/vee-validate/dist/locale/pt_BR.js',
+        './node_modules/datatables.net/js/jquery.dataTables.min.js',
         './node_modules/datatables.net-dt/js/dataTables.dataTables.min.js',
         './Scripts/jquery-ui.js',
         './Scripts/jquery.metisMenu.js',
