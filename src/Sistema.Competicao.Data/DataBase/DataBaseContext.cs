@@ -1,5 +1,8 @@
 using Microsoft.EntityFrameworkCore;
-using Sistema.Competicao.Domain.Account;
+using Sistema.Competicao.Domain.Entities.Account;
+using Sistema.Competicao.Domain.Entities.Administracao;
+using Sistema.Competicao.Domain.Entities.Cadastros;
+using Sistema.Competicao.Domain.Entities.Controles;
 
 namespace Sistema.Competicao.Data
 {
@@ -16,7 +19,25 @@ namespace Sistema.Competicao.Data
 
         #endregion Account
 
-        //public DbSet<QuadraEN> tblQuadra { get; set; }
-        //public DbSet<AdversarioEN> tblAdversario { get; set; }
+        #region Administracao
+
+        public DbSet<ParametrosEN> tblParametros { get; set; }
+
+        #endregion Administracao
+
+        #region Cadastros
+
+        public DbSet<AdversarioEN> tblAdversario { get; set; }
+        public DbSet<EquipeEN> tblEquipe { get; set; }
+        public DbSet<PosicaoEN> tblPosicao { get; set; }
+        public DbSet<QuadraEN> tblQuadra { get; set; }
+
+        #endregion Cadastros
+
+        #region Controles
+
+        public DbSet<TipoDespesaReceitaEN> tblTipoDespesaReceita { get; set; }
+
+        #endregion Controles
     }
 }

@@ -1,11 +1,14 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Sistema.Competicao.Data;
-using Sistema.Competicao.Domain;
 using System;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Sistema.Competicao.Domain.Account;
+using Sistema.Competicao.Domain.Interfaces;
+using Sistema.Competicao.Data.Authentication;
+using Sistema.Competicao.Domain.Services.Account;
+using Sistema.Competicao.Domain.Services.Controles;
+using Sistema.Competicao.Domain.Services.Cadastros;
 
 namespace Sistema.Competicao.DI
 {
@@ -34,6 +37,27 @@ namespace Sistema.Competicao.DI
             services.AddTransient(typeof(PerfilBU));
 
             #endregion Account
+
+            #region Administração
+
+            services.AddTransient(typeof(ParametrosBU));
+
+            #endregion Administração
+
+            #region Cadastros
+
+            services.AddTransient(typeof(AdversarioBU));
+            services.AddTransient(typeof(QuadraBU));
+            services.AddTransient(typeof(EquipeBU));
+            services.AddTransient(typeof(PosicaoBU));
+
+            #endregion Cadastros
+
+            #region Controles
+
+            services.AddTransient(typeof(TipoDespesaReceitaBU));
+
+            #endregion Controles
         }
     }
 }

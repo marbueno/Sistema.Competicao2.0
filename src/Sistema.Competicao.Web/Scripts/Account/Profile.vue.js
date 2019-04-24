@@ -3,11 +3,12 @@ var appProfile = new Vue({
     data: {
         Email: '',
         Nome: '',
-        Perfil: 0
+        Perfil: ''
     },
 
     mounted() {
 
         appMain.formName = '#frmProfile';
+        appLoadData.carregarPerfis();
     }
 });

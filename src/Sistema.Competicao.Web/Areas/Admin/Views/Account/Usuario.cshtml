@@ -37,7 +37,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card-header">
-                        <h5 class="title">Editar Usuário</h5>
+                        <h5 class="title">Criar/Editar Usuário</h5>
                     </div>
                     <section>
                         <form id="frmUsuario" action="UsuarioCreateOrUpdate" method="post" class="form" data-ajax="true"
@@ -55,7 +55,7 @@
                                     <div class="col-md-6 pr-md-1">
                                         <div class="form-group">
                                             <label for="Login">Login</label>
-                                            <input type="text" class="form-control" placeholder="Login" name="Login" data-vv-as="Login" v-model="Login" v-validate="'required'">
+                                            <input type="text" class="form-control" placeholder="Login" name="Login" v-model="Login" v-validate="'required'">
                                             <span v-show="errors.has('Login')" class="alert-form">{{ errors.first('Login') }}</span>
                                         </div>
                                     </div>
@@ -64,17 +64,19 @@
                                     <div class="col-md-6 pr-md-1">
                                         <div class="form-group">
                                             <label for="Email">Email</label>
-                                            <input type="text" class="form-control" placeholder="E-Mail" name="Email" data-vv-as="Email" v-model="Email" v-validate="'required'">
+                                            <input type="text" class="form-control" placeholder="E-Mail" name="Email" v-model="Email" v-validate="'required'">
                                             <span v-show="errors.has('Email')" class="alert-form">{{ errors.first('Email') }}</span>
                                         </div>
                                     </div>
                                     <div class="col-md-6 pr-md-1">
                                         <div class="form-group">
                                             <label for="Perfil">Perfil</label>
-                                            <select class="form-control" name="Perfil" data-vv-as="Perfil" v-model="Perfil" v-validate="'required'">
-                                                <option value="0" disabled selected>-- SELECIONAR REGISTRO --</option>
-                                                <option value="1">Administrador</option>
-                                            </select>
+                                            <select class="form-control" name="Perfil" data-vv-as="Perfil" v-model="Perfil" v-validate data-vv-rules="required">
+                                                <option value="">-- SELECIONE UM REGISTRO --</option>
+                                                <option v-for="itemPerfil in appLoadData.listPerfil" v-bind:value="itemPerfil.codigo">
+                                                    {{itemPerfil.nome}}
+                                                </option>
+                                            </select>   
                                             <span v-show="errors.has('Perfil')" class="alert-form">{{ errors.first('Perfil') }}</span>
                                         </div>
                                     </div>

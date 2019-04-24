@@ -8,6 +8,8 @@ const config = {
 
 Vue.use(VeeValidate, config);
 
+Vue.use(VueMask.VueMaskPlugin);
+
 var appMain = new Vue({
     el: '#appMain',
     data: {
@@ -92,7 +94,7 @@ var appMain = new Vue({
                     "columns": tableColumns
                 });
 
-                $('#tbl' + tableName + ' tbody').on('click', 'tr', function () {
+                $('#' + tableName + ' tbody').on('click', 'tr', function () {
                     if ($(this).hasClass('selected')) {
                         $(this).removeClass('selected');
                     }

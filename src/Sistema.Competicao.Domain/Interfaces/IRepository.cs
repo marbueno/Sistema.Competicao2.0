@@ -2,9 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Threading.Tasks;
 
-namespace Sistema.Competicao.Domain
+namespace Sistema.Competicao.Domain.Interfaces
 {
     public interface IRepository<TEntity>
     {

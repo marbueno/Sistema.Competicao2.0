@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
 
-namespace Sistema.Competicao.Domain.Account
+namespace Sistema.Competicao.Domain.Entities.Account
 {
     public class PerfilEN
     {

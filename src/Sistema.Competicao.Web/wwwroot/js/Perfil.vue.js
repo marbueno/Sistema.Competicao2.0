@@ -3,7 +3,6 @@ var appPerfil = new Vue({
     data: {
         Codigo: 0,
         Nome: '',
-        listPerfil: [],
         columns:
             [
                 { "data": "codigo" },
@@ -32,14 +31,14 @@ var appPerfil = new Vue({
         },
 
         editRegister: function (id) {
-            this.Codigo = this.listPerfil[id].codigo;
-            this.Nome = this.listPerfil[id].nome;
+            this.Codigo = appLoadData.listPerfil[id].codigo;
+            this.Nome = appLoadData.listPerfil[id].nome;
             appMain.showForm();
         },
 
         deleteRegister: function (id, confirmed) {
             if (confirmed === false) {
-                this.Codigo = this.listPerfil[id].codigo;
+                this.Codigo = appLoadData.listPerfil[id].codigo;
                 appMain.showModal();
             }
             else {
@@ -56,12 +55,12 @@ var appPerfil = new Vue({
     mounted() {
 
         appMain.formName = '#frmPerfil';
-        fetch('/Account/ListPerfil')
-            .then(res => res.json())
-            .then(data => {
-                var iCount = 0;
-                data.forEach(item => { item.id = iCount; this.listPerfil.push(item); iCount++; });
-                appMain.loadTable('tblPerfil', this.listPerfil, this.columns);
+        appLoadData.carregarPerfis()
+            .then(dataLoaded =>
+            {
+                if (dataLoaded) {
+                    appMain.loadTable('tblPerfil', appLoadData.listPerfil, this.columns);
+                }
             });
     }
 });

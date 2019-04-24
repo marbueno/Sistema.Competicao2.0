@@ -1,7 +1,7 @@
-﻿using Sistema.Competicao.Domain.Account;
+﻿using Sistema.Competicao.Domain.Entities.Account;
 using System.Threading.Tasks;
 
-namespace Sistema.Competicao.Domain
+namespace Sistema.Competicao.Domain.Interfaces
 {
     public interface IAuthentication
     {

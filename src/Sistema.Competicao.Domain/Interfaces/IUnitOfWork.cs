@@ -1,6 +1,4 @@
-using System.Threading.Tasks;
-
-namespace Sistema.Competicao.Domain
+namespace Sistema.Competicao.Domain.Interfaces
 {
     public interface IUnitOfWork
     {

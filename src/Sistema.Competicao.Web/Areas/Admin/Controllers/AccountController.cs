@@ -4,8 +4,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using Sistema.Competicao.Domain;
-using Sistema.Competicao.Domain.Account;
+using Sistema.Competicao.Domain.Entities.Account;
+using Sistema.Competicao.Domain.Interfaces;
+using Sistema.Competicao.Domain.Services.Account;
 using Sistema.Competicao.Web.Areas.Admin.Models.Account;
 
 namespace Sistema.Competicao.Web.Areas.Admin.Controllers
@@ -78,7 +79,9 @@ namespace Sistema.Competicao.Web.Areas.Admin.Controllers
                 Codigo = usuarioEN.usuCodigo,
                 Login = usuarioEN.usuLogin,
                 Nome = usuarioEN.usuNome,
-                Email = usuarioEN.usuEmail
+                Email = usuarioEN.usuEmail,
+                Perfil = usuarioEN.perCodigo,
+                PerfilDescricao = GetListPerfil().Where(obj => obj.Codigo == usuarioEN.perCodigo).FirstOrDefault().Nome
             };
 
             return View(usuarioVM);
@@ -96,6 +99,14 @@ namespace Sistema.Competicao.Web.Areas.Admin.Controllers
 
         #region Perfil
 
+        private IEnumerable<PerfilVM> GetListPerfil()
+        {
+            var listPerfil = _perfilRepository.All();
+            var perfilVM = listPerfil.Select(c => new PerfilVM { Codigo = c.perCodigo, Nome = c.perNome });
+
+            return perfilVM;
+        }
+
         public IActionResult Perfil()
         {
             return View();
@@ -103,9 +114,7 @@ namespace Sistema.Competicao.Web.Areas.Admin.Controllers
 
         public JsonResult ListPerfil()
         {
-            var listPerfil = _perfilRepository.All();
-            var perfilVM = listPerfil.Select(c => new PerfilVM { Codigo = c.perCodigo, Nome = c.perNome });
-            return Json(perfilVM);
+            return Json(GetListPerfil());
         }
 
         [HttpPost]

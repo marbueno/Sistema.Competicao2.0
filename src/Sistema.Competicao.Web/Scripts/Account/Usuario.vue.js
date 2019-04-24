@@ -5,7 +5,7 @@ var appUsuario = new Vue({
         Nome: '',
         Login: '',
         Email: '',
-        Perfil: 0,
+        Perfil: '',
         listUsuario: [],
         columns:
             [
@@ -35,6 +35,7 @@ var appUsuario = new Vue({
             this.Nome = '';
             this.Login = '';
             this.Email = '';
+            this.Perfil = '';
             appMain.showForm();
         },
 
@@ -66,6 +67,7 @@ var appUsuario = new Vue({
     mounted() {
 
         appMain.formName = '#frmUsuario';
+        appLoadData.carregarPerfis();
         fetch('/Account/ListUsuario')
             .then(res => res.json())
             .then(data => {

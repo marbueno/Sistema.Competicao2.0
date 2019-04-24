@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Sistema.Competicao.Domain
+namespace Sistema.Competicao.Domain.Entities.Cadastros
 {
     public class QuadraEN
     {
@@ -10,7 +10,9 @@ namespace Sistema.Competicao.Domain
         public string quaEndereco { get; set; }
         public int quaNumero { get; set; }
         public string quaBairro { get; set; }
-        
+
+        private QuadraEN() { }
+
         public QuadraEN (string quaNome, string quaEndereco, int quaNumero, string quaBairro) 
         {
             ValidateAndSetProperties(quaNome, quaEndereco, quaNumero, quaBairro);

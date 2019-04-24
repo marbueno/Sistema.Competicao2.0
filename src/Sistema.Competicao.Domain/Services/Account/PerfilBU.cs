@@ -1,4 +1,7 @@
-﻿namespace Sistema.Competicao.Domain.Account
+﻿using Sistema.Competicao.Domain.Entities.Account;
+using Sistema.Competicao.Domain.Interfaces;
+
+namespace Sistema.Competicao.Domain.Services.Account
 {
     public class PerfilBU
     {

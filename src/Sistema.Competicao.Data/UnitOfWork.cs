@@ -1,6 +1,4 @@
-using System.Threading.Tasks;
-using Sistema.Competicao.Data;
-using Sistema.Competicao.Domain;
+using Sistema.Competicao.Domain.Interfaces;
 
 namespace Sistema.Competicao.Data
 {

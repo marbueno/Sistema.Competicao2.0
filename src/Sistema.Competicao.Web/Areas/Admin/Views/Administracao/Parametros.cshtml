@@ -1,0 +1,116 @@
+﻿@{
+    ViewData["Title"] = "Parâmetros do Sistema";
+}
+
+<div id="appParametros" class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="title">Editar Parâmetros</h5>
+                </div>
+                <section>
+                    <form id="frmParametros" action="ParametrosUpdate" method="post" class="form" data-ajax="true"
+                          data-ajax-method="POST" data-ajax-failure="formOnFail" data-ajax-success="window.location = '/Admin/Administracao/Parametros'">
+                        <div class="card-body">
+                            <div class="row">
+                                <input type="hidden" asp-for="Codigo" name="Codigo" v-model="Codigo" />
+                                <div class="col-md-6 pr-md-1">
+                                    <div class="form-group">
+                                        <table>
+                                            <tr>
+                                                <td><label>Esconder o Valor de Pagamento na Sumula ?</label></td>
+                                                <td style="width:20px;"></td>
+                                                <td style="width:50px; height:50px;" class="form-check">
+                                                    <label class="form-check-label">
+
+                                                        <input type="checkbox" class="form-check-input" name="EsconderValorPagamentoSumula" v-model="EsconderValorPagamentoSumula" v-bind:value="EsconderValorPagamentoSumula">
+                                                        <span class="form-check-sign"></span>
+                                                    </label>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 pr-md-1">
+                                    <div class="form-group">
+                                        <label for="CaminhoFotos">Caminho para exibição das Fotos</label>
+                                        <input type="text" class="form-control" data-vv-as="Caminho para exibição das Fotos" v-model="CaminhoFotos" name="CaminhoFotos" v-validate="'required'">
+                                        <span v-show="errors.has('CaminhoFotos')" class="alert-form">{{ errors.first('CaminhoFotos') }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 pr-md-1">
+                                    <div class="form-group">
+                                        <label for="TamanhoFotos">Tamanho máximo para Upload das Fotos [em KBytes]</label>
+                                        <input type="text" class="form-control" data-vv-as="Tamanho máximo para Upload das Fotos" v-model="TamanhoFotos" name="TamanhoFotos" v-validate="'required'">
+                                        <span v-show="errors.has('TamanhoFotos')" class="alert-form">{{ errors.first('TamanhoFotos') }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 pr-md-1">
+                                    <div class="form-group">
+                                        <label for="ExtensaoFotos">Extensões permitidas para Upload das Fotos (Ex.: .jpg;.bmp)</label>
+                                        <input type="text" class="form-control" data-vv-as="Extensões permitidas para Upload das Fotos" v-model="ExtensaoFotos" name="ExtensaoFotos" v-validate="'required'">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 pr-md-1">
+                                    <div class="form-group">
+                                        <label for="CaminhoFotosAtletas">Caminho para exibição das Fotos dos Atletas</label>
+                                        <input type="text" class="form-control" data-vv-as="Caminho para exibição das Fotos dos Atletas" v-model="CaminhoFotosAtletas" name="CaminhoFotosAtletas" v-validate="'required'">
+                                        <span v-show="errors.has('CaminhoFotosAtletas')" class="alert-form">{{ errors.first('CaminhoFotosAtletas') }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 pr-md-1">
+                                    <div class="form-group">
+                                        <label for="TamanhoAlturaFotos">Informe o tamanho da altura das fotos [Ranking Atletas - px]</label>
+                                        <input type="number" class="form-control" data-vv-as="Tamanho da altura das fotos" v-model="TamanhoAlturaFotos" name="TamanhoAlturaFotos" v-validate="'required'">
+                                        <span v-show="errors.has('TamanhoAlturaFotos')" class="alert-form">{{ errors.first('TamanhoAlturaFotos') }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 pr-md-1">
+                                    <div class="form-group">
+                                        <label for="TamanhoLarguraFotos">Informe o tamanho da largura das fotos [Ranking Atletas - px]</label>
+                                        <input type="number" class="form-control" data-vv-as="Tamanho da largura das Fotos" v-model="TamanhoLarguraFotos" name="TamanhoLarguraFotos" v-validate="'required'">
+                                        <span v-show="errors.has('TamanhoLarguraFotos')" class="alert-form">{{ errors.first('TamanhoLarguraFotos') }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 pr-md-1">
+                                    <div class="form-group">
+                                        <label for="TipoReceita">Informe o Tipo de Receita que será lançado no Fluxo de Caixa dos Pagtos dos Atletas</label>
+                                        <select class="form-control" name="TipoReceita" v-model="TipoReceita" data-vv-as="Tipo de Receita" v-validate data-vv-rules="required">
+                                            <option value="">-- SELECIONE UM REGISTRO --</option>
+                                            <option v-for="itemTipoReceita in appLoadData.listTipoDespesaReceita" v-if="itemTipoReceita.tipoDespesaReceita == 'R'" v-bind:value="itemTipoReceita.codigo">
+                                                {{itemTipoReceita.descricao}}
+                                            </option>
+                                        </select>
+                                        <span v-show="errors.has('TipoReceita')" class="alert-form">{{ errors.first('TipoReceita') }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <button class="btn btn-fill btn-primary" v-on:click="appMain.validateData($event, this.appParametros)">Alterar</button>
+                        </div>
+                    </form>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/js/Parametros.vue.js"></script>
+}

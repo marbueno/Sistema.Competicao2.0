@@ -2,13 +2,14 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 using Sistema.Competicao.Domain;
-using Sistema.Competicao.Domain.Account;
+using Sistema.Competicao.Domain.Entities.Account;
+using Sistema.Competicao.Domain.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace Sistema.Competicao.Data
+namespace Sistema.Competicao.Data.Authentication
 {
     public class Authentication : IAuthentication
     {
@@ -31,7 +32,7 @@ namespace Sistema.Competicao.Data
             {
                 new Claim("ID", usuario.FirstOrDefault().usuCodigo.ToString()),
                 new Claim(ClaimTypes.Name, usuario.FirstOrDefault().usuLogin),
-                new Claim(ClaimTypes.Email, usuario.FirstOrDefault().usuEmail),
+                new Claim(ClaimTypes.Email, usuario.FirstOrDefault().usuEmail ?? ""),
                 new Claim("FullName", usuario.FirstOrDefault().usuNome),
                 new Claim(ClaimTypes.Role, "Administrator"),
             };
