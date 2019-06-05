@@ -1,4 +1,3 @@
-using Sistema.Competicao.Domain;
 using Sistema.Competicao.Domain.Interfaces;
 using System;
 using System.Collections.Generic;

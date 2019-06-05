@@ -16,9 +16,11 @@
     <None Remove="Scripts\Account\Usuario.vue.js" />
     <None Remove="Scripts\Administracao\Parametros.vue.js" />
     <None Remove="Scripts\Cadastros\Adversario.vue.js" />
+    <None Remove="Scripts\Cadastros\Atleta.vue.js" />
     <None Remove="Scripts\Cadastros\Equipe.vue.js" />
     <None Remove="Scripts\Cadastros\Posicao.vue.js" />
     <None Remove="Scripts\Cadastros\Quadra.vue.js" />
+    <None Remove="Scripts\Controles\ControlePagamento.vue.js" />
     <None Remove="Scripts\Controles\TipoDespesaReceita.vue.js" />
   </ItemGroup>
 
@@ -27,10 +29,12 @@
     <Content Include="Scripts\Account\Perfil.vue.js" />
     <Content Include="Scripts\Account\Profile.vue.js" />
     <Content Include="Scripts\Administracao\Parametros.vue.js" />
+    <Content Include="Scripts\Cadastros\Atleta.vue.js" />
     <Content Include="Scripts\Cadastros\Equipe.vue.js" />
     <Content Include="Scripts\Cadastros\Adversario.vue.js" />
     <Content Include="Scripts\Cadastros\Quadra.vue.js" />
     <Content Include="Scripts\Cadastros\Posicao.vue.js" />
+    <Content Include="Scripts\Controles\ControlePagamento.vue.js" />
     <Content Include="Scripts\Controles\TipoDespesaReceita.vue.js" />
     <Content Include="Styles\black-dashboard.css" />
   </ItemGroup>

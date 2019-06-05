@@ -18,7 +18,8 @@ var appMain = new Vue({
         formName: '',
         tableName: '',
         tableData: null,
-        tableColumns: null
+        tableColumns: null,
+        tableOrder: null
     },
     methods: {
 
@@ -46,7 +47,7 @@ var appMain = new Vue({
 
             this.$nextTick(() => {
                 //DOM rendered
-                this.loadTable(this.tableName, this.tableData, this.tableColumns);
+                this.loadTable(this.tableName, this.tableData, this.tableColumns, this.tableOrder);
             });
         },
 
@@ -58,11 +59,12 @@ var appMain = new Vue({
             });
         },
 
-        loadTable: function (tableName, tableData, tableColumns) {
+        loadTable: function (tableName, tableData, tableColumns, tableOrder) {
 
             this.tableName = tableName;
             this.tableData = tableData;
             this.tableColumns = tableColumns;
+            this.tableOrder = tableOrder;
 
             try {
                 $('#' + tableName).dataTable().fnClearTable();
@@ -91,7 +93,9 @@ var appMain = new Vue({
 
                     "data": tableData,
 
-                    "columns": tableColumns
+                    "columns": tableColumns,
+
+                    "order": tableOrder
                 });
 
                 $('#' + tableName + ' tbody').on('click', 'tr', function () {

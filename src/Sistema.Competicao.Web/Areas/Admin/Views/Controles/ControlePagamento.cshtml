@@ -1,0 +1,111 @@
+﻿@{
+    ViewData["Title"] = "Controle de Pagamento dos Atletas";
+}
+
+<div id="appControlePagamento" class="content">
+    <div class="card">
+        <div v-if="appMain.newRegister === false">
+            <div class="row">
+                <div class="col-md-12" style="margin-left: 20px; margin-top: 20px;">
+                    <button class="btn btn-fill btn-info" v-on:click="newRegister()">Novo Registro</button>
+                </div>
+            </div>
+
+            <hr />
+
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="tblControlePagamento" class="table tablesorter" cellspacing="0" width="100%">
+                        <thead class="text-primary">
+                            <tr>
+                                <th>Código</th>
+                                <th>Atleta</th>
+                                <th>Data Pagamento</th>
+                                <th>Valor Pago</th>
+                                <th>Mês Referência</th>
+                                <th style="width:15px;"></th>
+                                <th style="width:15px;"></th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div v-if="appMain.newRegister">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card-header">
+                        <h5 class="title">Criar/Editar Pagamento</h5>
+                    </div>
+                    <section>
+                        <form id="frmControlePagamento" action="ControlePagamentoCreateOrUpdate" method="post" class="form" data-ajax="true"
+                              data-ajax-method="POST" data-ajax-failure="formOnFail" data-ajax-success="window.location = '/Admin/Controles/ControlePagamento'">
+                            <div class="card-body">
+                                <input type="hidden" class="form-control" name="Codigo" v-model="Codigo">
+                                <div class="row">
+                                    <div class="col-md-6 pr-md-1">
+                                        <div class="form-group">
+                                            <label for="Atleta">Atleta</label>
+                                            <select class="form-control" name="Atleta" v-model="Atleta" data-vv-as="Atleta" v-validate data-vv-rules="required">
+                                                <option value="">-- SELECIONE UM REGISTRO --</option>
+                                                <option v-for="itemAtleta in appLoadData.listAtleta" v-bind:value="itemAtleta.codigo">
+                                                    {{itemAtleta.nome}}
+                                                </option>
+                                            </select>
+                                            <span v-show="errors.has('Atleta')" class="alert-form">{{ errors.first('Atleta') }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 pr-md-1">
+                                        <div class="form-group">
+                                            <label for="Nome">Data Pagamento</label>
+                                            <date-picker name="DataPagto" placeholder="Data do Pagamento" autocomplete="off" v-mask="'##/##/####'" style="cursor:pointer;" v-model="DataPagto" :config="config"></date-picker>
+                                            <span v-show="errors.has('DataPagamento')" class="alert-form">{{ errors.first('DataPagamento') }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 pr-md-1">
+                                        <div class="form-group">
+                                            <label for="MesReferencia">Mês de Referência</label>
+                                            <select class="form-control" style="cursor:pointer;" name="MesReferencia" v-model="MesReferencia" data-vv-as="Mês de Referência" v-validate data-vv-rules="required">
+                                                <option value="">-- SELECIONE UM REGISTRO --</option>
+                                                <option v-for="itemMes in appLoadData.listMeses" v-bind:value="itemMes.codigo">
+                                                    {{itemMes.descricao}}
+                                                </option>
+                                            </select>
+                                            <span v-show="errors.has('MesReferencia')" class="alert-form">{{ errors.first('MesReferencia') }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 pr-md-1">
+                                        <div class="form-group">
+                                            <label for="ValorPago">Valor Pago</label>
+                                            <input type="text" class="form-control" placeholder="ValorPago" name="ValorPago" v-mask="'##,##'" data-vv-as="Valor Pago" v-model="ValorPago" v-validate="'required'">
+                                            <span v-show="errors.has('ValorPago')" class="alert-form">{{ errors.first('ValorPago') }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <button class="btn btn-fill btn-primary" v-on:click="appMain.validateData($event, this.appControlePagamento)">Salvar</button>
+                                <button class="btn btn-fill btn-info" v-on:click="appMain.cancelForm($event)">Cancelar</button>
+                            </div>
+                        </form>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @await Html.PartialAsync("~/Areas/Admin/Views/Shared/_DeleteRegisterPartial.cshtml")
+</div>
+
+@section Scripts{
+    <script src="~/js/ControlePagamento.vue.js"></script>
+}

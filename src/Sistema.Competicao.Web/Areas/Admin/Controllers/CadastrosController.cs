@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -17,6 +18,9 @@ namespace Sistema.Competicao.Web.Areas.Admin.Controllers
         private readonly IRepository<AdversarioEN> _adversarioRepository;
         private readonly AdversarioBU _adversarioBU;
 
+        private readonly IRepository<AtletaEN> _atletaRepository;
+        private readonly AtletaBU _atletaBU;
+
         private readonly IRepository<EquipeEN> _equipeRepository;
         private readonly EquipeBU _equipeBU;
 
@@ -32,12 +36,16 @@ namespace Sistema.Competicao.Web.Areas.Admin.Controllers
 
         public CadastrosController(
                 IRepository<AdversarioEN> adversarioRepository, AdversarioBU adversarioBU,
+                IRepository<AtletaEN> atletaRepository, AtletaBU atletaBU,
                 IRepository<EquipeEN> equipeRepository, EquipeBU equipeBU,
                 IRepository<PosicaoEN> posicaoRepository, PosicaoBU posicaoBU,
                 IRepository<QuadraEN> quadraRepository, QuadraBU quadraBU)
         {
             _adversarioRepository = adversarioRepository;
             _adversarioBU = adversarioBU;
+
+            _atletaRepository = atletaRepository;
+            _atletaBU = atletaBU;
 
             _equipeRepository = equipeRepository;
             _equipeBU = equipeBU;
@@ -96,6 +104,54 @@ namespace Sistema.Competicao.Web.Areas.Admin.Controllers
 
         #endregion Adversário
 
+        #region Atleta
+
+        public IActionResult Atleta()
+        {
+            return View();
+        }
+
+        public JsonResult ListAtleta()
+        {
+            var listAtleta = _atletaRepository.All();
+            var atletaVM = listAtleta.Select(
+                c => new AtletaVM
+                {
+                    Codigo = c.atlCodigo,
+                    Nome = c.atlNome,
+                    CPF = c.atlCPF == null ? string.Empty : c.atlCPF.ToString(),
+                    RG = c.atlRG,
+                    DataNascimento = c.atlDataNascimento,
+                    DataNascimentoFormatada = c.atlDataNascimento.ToString("dd-MM-yyyy"),
+                    Posicao = c.posCodigo,
+                    Equipe = c.equCodigo,
+                    PrimeiroQuadro = c.atlPrimeiroQuadro,
+                    SegundoQuadro = c.atlSegundoQuadro,
+                    IsentoPagamento = c.atlIsentoPagamento,
+                    Foto = c.atlFoto
+                });
+
+            return Json(atletaVM.OrderBy(o => o.Nome).ToList());
+        }
+
+        [HttpPost]
+        public IActionResult AtletaCreateOrUpdate(AtletaVM atletaVM)
+        {
+            _atletaBU.Save(atletaVM.Codigo, atletaVM.Nome, Convert.ToDouble(atletaVM.CPF), atletaVM.RG, atletaVM.DataNascimento, atletaVM.Posicao, atletaVM.Equipe, atletaVM.PrimeiroQuadro, atletaVM.SegundoQuadro, atletaVM.IsentoPagamento, atletaVM.Foto);
+
+            return Ok();
+        }
+
+        [HttpDelete]
+        public IActionResult AtletaRemove(int id)
+        {
+            _atletaRepository.Delete(id);
+
+            return Ok();
+        }
+
+        #endregion Atleta
+        
         #region Equipe
 
         public IActionResult Equipe()

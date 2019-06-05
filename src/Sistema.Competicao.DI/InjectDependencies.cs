@@ -9,6 +9,7 @@ using Sistema.Competicao.Data.Authentication;
 using Sistema.Competicao.Domain.Services.Account;
 using Sistema.Competicao.Domain.Services.Controles;
 using Sistema.Competicao.Domain.Services.Cadastros;
+using Sistema.Competicao.Data.Repositories;
 
 namespace Sistema.Competicao.DI
 {
@@ -47,6 +48,7 @@ namespace Sistema.Competicao.DI
             #region Cadastros
 
             services.AddTransient(typeof(AdversarioBU));
+            services.AddTransient(typeof(AtletaBU));
             services.AddTransient(typeof(QuadraBU));
             services.AddTransient(typeof(EquipeBU));
             services.AddTransient(typeof(PosicaoBU));
@@ -55,6 +57,8 @@ namespace Sistema.Competicao.DI
 
             #region Controles
 
+            services.AddTransient(typeof(ControleRepository));
+            services.AddTransient(typeof(ControleBU));
             services.AddTransient(typeof(TipoDespesaReceitaBU));
 
             #endregion Controles

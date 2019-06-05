@@ -42,8 +42,10 @@ gulp.task('js', function(){
         './Scripts/Administracao/Parametros.vue.js',
         './Scripts/Cadastros/Quadra.vue.js',
         './Scripts/Cadastros/Adversario.vue.js',
+        './Scripts/Cadastros/Atleta.vue.js',
         './Scripts/Cadastros/Equipe.vue.js',
         './Scripts/Cadastros/Posicao.vue.js',
+        './Scripts/Controles/ControlePagamento.vue.js',
         './Scripts/Controles/TipoDespesaReceita.vue.js',
 
         './Scripts/site.js'

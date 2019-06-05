@@ -66,7 +66,7 @@
                                     <div class="col-md-2 pr-md-1">
                                         <div class="form-group">
                                             <label for="Nome">Data Fundação</label>
-                                            <date-picker name="DataFundacao" placeholder="Data da Fundação" v-mask="'##/##/####'" style="cursor:pointer;" v-model="DataFundacao" :config="config"></date-picker>
+                                            <date-picker name="DataFundacao" placeholder="Data da Fundação" autocomplete="off" v-mask="'##/##/####'" style="cursor:pointer;" v-model="DataFundacao" :config="config"></date-picker>
                                             <span v-show="errors.has('DataFundacao')" class="alert-form">{{ errors.first('DataFundacao') }}</span>
                                         </div>
                                     </div>

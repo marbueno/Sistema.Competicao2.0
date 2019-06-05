@@ -28,6 +28,7 @@ namespace Sistema.Competicao.Data
         #region Cadastros
 
         public DbSet<AdversarioEN> tblAdversario { get; set; }
+        public DbSet<AtletaEN> tblAtleta { get; set; }
         public DbSet<EquipeEN> tblEquipe { get; set; }
         public DbSet<PosicaoEN> tblPosicao { get; set; }
         public DbSet<QuadraEN> tblQuadra { get; set; }
@@ -37,6 +38,7 @@ namespace Sistema.Competicao.Data
         #region Controles
 
         public DbSet<TipoDespesaReceitaEN> tblTipoDespesaReceita { get; set; }
+        public DbSet<ControleEN> tblControle { get; set; }
 
         #endregion Controles
     }
