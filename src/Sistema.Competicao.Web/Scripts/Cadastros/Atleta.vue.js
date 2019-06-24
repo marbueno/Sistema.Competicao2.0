@@ -16,9 +16,15 @@ var appAtleta = new Vue({
         columns:
             [
                 { "data": "codigo" },
-                { "data": "nome" },
-                { "data": "segundoQuadro" },
-                { "data": "primeiroQuadro" },
+                { "data": "nome" },                {
+                    "mDataProp": "segundoQuadro",                    mRender: function (data, type, row) {
+                        var checked = "";                        if (data === true)                            checked = "checked='checked'";                        return "<input name='chkSegundoQuadro' type='checkbox' " + checked + " disabled style='height:30px; width:40px; margin-left:10px;' >";
+                    }
+                },                {
+                    "mDataProp": "primeiroQuadro",                    mRender: function (data, type, row) {
+                        var checked = "";                        if (data === true)                            checked = "checked='checked'";                        return "<input name='chkPrimeiroQuadro' type='checkbox' " + checked + " disabled style='height:30px; width:40px; margin-left:10px;' >";
+                    }
+                },
                 {
                     "mDataProp": "Editar",
                     mRender: function (data, type, row) {

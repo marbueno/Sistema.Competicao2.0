@@ -10,11 +10,11 @@ var appPosicao = new Vue({
                 { "data": "codigo" },
                 { "data": "descricao" },                {
                     "mDataProp": "goleiro",                    mRender: function (data, type, row) {
-                        var checked = "";                        if (data === true)                            checked = "checked='checked'";                        return "<input class='form-control' type='checkbox' " + checked + " disabled style='height:25px;width:40px;'>";
+                        var checked = "";                        if (data === true)                            checked = "checked='checked'";                        return "<input class='form-control' type='checkbox' " + checked + " disabled style='height:30px; width:40px; margin-left:10px;'>";
                     }
                 },                {
                     "mDataProp": "tecnico",                    mRender: function (data, type, row) {
-                        var checked = "";                        if (data === true)                            checked = "checked='checked'";                        return "<input class='form-control' type='checkbox' " + checked + " disabled style='height:25px;width:40px;'>";
+                        var checked = "";                        if (data === true)                            checked = "checked='checked'";                        return "<input class='form-control' type='checkbox' " + checked + " disabled style='height:30px; width:40px; margin-left:10px;'>";
                     }
                 },
                 {
